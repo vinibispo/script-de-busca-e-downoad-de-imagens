@@ -1,3 +1,3 @@
-//const docx = require('docx');
+const docx = require('docx');
 var fs = require("fs");
 var docx = require("docx");
