@@ -1,7 +1,7 @@
-function search(){
-	console.log("sou a função search")
-	const google = require('google')
+function search(search){
+	const google = require('googleapi')
 	
+
 }
 module.exports = search
 
