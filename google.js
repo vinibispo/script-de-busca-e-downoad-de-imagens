@@ -10,7 +10,7 @@ function search(search){
 	 
 	  for (let i = 0; i < res.links.length; ++i) {
 		let link = res.links[i]
-		console.log(link.title + ' - ' + link.href)
+		Algorithmia(link.href)
 		
 	  }
 	 
