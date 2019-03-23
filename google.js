@@ -1,5 +1,6 @@
 function search(search){
 	let google = require('google')
+	let Algorithmia = require('./algorithmia')
 	 
 	google.resultsPerPage = 1
 	let nextCounter = 0
