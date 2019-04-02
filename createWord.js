@@ -15,7 +15,7 @@ class word {
     this.par = parametersObj
     this.fileTitle = this.par.title
 
-    this.doc.addParagraph(new this.docx.Paragraph().center().addRun(new this.docx.TextRun('Etecvav').size(24).font('Arial')))
+    this.doc.addParagraph(new this.docx.Paragraph().center().addRun(new this.docx.TextRun('ETEC Vasco Antônio Venchiarutti').size(24).font('Arial')))
 
 
     this.create()
