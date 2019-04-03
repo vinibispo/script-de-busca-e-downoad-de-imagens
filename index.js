@@ -1,5 +1,5 @@
 const readline  = require('readline-sync')
-const google = require('./google.js')
+//const google = require('./google.js')
 
 function start() {
 	const contentsearch = {}

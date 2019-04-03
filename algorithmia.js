@@ -1,6 +1,6 @@
 const algorithmia = require("algorithmia");
 const pass = require('./credentials/package.json').apiKey
-const google = require('./google')
+//const google = require('./google')
 async function Summarize(link){
     console.log(link)
     algorithmia.client(pass)

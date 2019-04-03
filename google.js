@@ -1,4 +1,4 @@
-function search(search){
+/*function search(search){
 	let google = require('google')
 	let Algorithmia = require('./algorithmia')
 	 
@@ -20,5 +20,8 @@ function search(search){
 	  }
 	})
 }
-module.exports = search
-
+module.exports = search*/
+const Google = require('googleapis').customsearch_v1.Customsearch
+const pass = require('./credentials/package.json').googlesearch
+const google = new Google()
+console.log(Object.getOwnPropertyNames(google))
