@@ -14,6 +14,21 @@ class word {
       .spacing({ line: 300 }) 
   }
 
+  start(parametersObj) {
+    this.par = parametersObj
+
+    this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
+    this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
+
+    this.create()
+  }
+
+  create() {
+      new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
+        this.fs.writeFileSync(this.par.title, buffer)
+    })
+  }
+
   addParagraph(text, style) {
     this.doc.addParagraph(new this.docx.Paragraph(text).style(style))
   }
@@ -25,22 +40,6 @@ class word {
 
   getRun(text, style) {
     return new this.docx.Run(text).style(style)    
-  }
-
-  start(parametersObj) {
-    this.par = parametersObj
-    this.fileTitle = this.par.title
-
-    this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
-    this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
-
-    this.create()
-  }
-
-  create() {
-      new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
-        this.fs.writeFileSync(this.fileTitle, buffer)
-    })
   }
 }
 
