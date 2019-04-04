@@ -11,6 +11,7 @@ class word {
       .size(24)
       .allCaps()
       .center()
+      .spacing({ line: 300 }) 
   }
 
   addParagraph(text, style) {
@@ -22,12 +23,15 @@ class word {
       this.addParagraph('', '')
   }
 
+  getRun(text, style) {
+    return new this.docx.Run(text).style(style)    
+  }
+
   start(parametersObj) {
     this.par = parametersObj
     this.fileTitle = this.par.title
 
     this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
-    this.addBlanckLines(1)
     this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
 
     this.create()
