@@ -8,17 +8,26 @@ class word {
 
     this.doc.Styles
       .createParagraphStyle('cover')
-      .size(50) 
+      .size(24)
+      .allCaps()
+      .center()
   }
 
   addParagraph(text, style) {
     this.doc.addParagraph(new this.docx.Paragraph(text).style(style))
   }
 
+  addBlanckLines(numLines) {
+    for (let i=0;i<numLines;i++)
+      this.addParagraph('', '')
+  }
+
   start(parametersObj) {
     this.par = parametersObj
     this.fileTitle = this.par.title
 
+    this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
+    this.addBlanckLines(1)
     this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
 
     this.create()
