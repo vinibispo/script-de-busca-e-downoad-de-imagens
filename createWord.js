@@ -11,11 +11,15 @@ class word {
       .size(50) 
   }
 
+  addParagraph(text, style) {
+    this.doc.addParagraph(new this.docx.Paragraph(text).style(style))
+  }
+
   start(parametersObj) {
     this.par = parametersObj
     this.fileTitle = this.par.title
 
-    this.doc.addParagraph(new this.docx.Paragraph('ETEC Vasco Antônio Venchiarutti').style('cover'))
+    this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
 
     this.create()
   }
