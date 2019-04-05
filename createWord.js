@@ -12,24 +12,28 @@ class word {
       .size(24)
       .spacing({ line: 360 }) 
       .font('Arial')
-    
+
     this.doc.Styles
       .createParagraphStyle('cover')
       .basedOn('default')
-      .allCaps()
       .center()
     
     this.doc.Styles
+      .createParagraphStyle('coverAllCaps')
+      .basedOn('cover')
+      .allCaps()
+    
+    this.doc.Styles
       .createParagraphStyle('coverBold')
-      .basedOn('default')
-      .center()
+      .basedOn('cover')
       .bold()
+
   }
 
   start(parametersObj) {
     this.par = parametersObj
 
-    this.setParagraphStyle('cover')
+    this.setParagraphStyle('coverAllCaps')
     this.addParagraph('ETEC Vasco Antônio Venchiarutti')
     this.addBlanckLines(4)
 
@@ -39,8 +43,13 @@ class word {
     this.setParagraphStyle('coverBold')
     this.addParagraph(this.par.title)
     this.addParagraph(this.par.subTitle)
+    this.addBlanckLines(15)
 
-    
+    this.setParagraphStyle('cover')
+    this.addParagraph(this.par.place)
+    this.addParagraph(this.par.year)
+
+
 
     this.create()
   }
@@ -84,6 +93,8 @@ let obj = {
   ],
   title: 'Título',
   subTitle: 'SubTítulo',
+  place: 'Jundiaí',
+  year: '2018',
 }
 
 new word().start(obj)
