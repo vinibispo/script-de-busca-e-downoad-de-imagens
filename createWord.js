@@ -7,17 +7,21 @@ class word {
     this.fs = require('fs')
 
     this.doc.Styles
-      .createParagraphStyle('cover')
+      .createParagraphStyle('default')
       .size(24)
+      .spacing({ line: 360 }) 
+      .font('Arial')
+    
+    this.doc.Styles
+      .createParagraphStyle('cover')
+      .basedOn('default')
       .allCaps()
       .center()
-      .spacing({ line: 300 }) 
   }
 
   start(parametersObj) {
     this.par = parametersObj
 
-    this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
     this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
 
     this.create()
@@ -30,6 +34,7 @@ class word {
   }
 
   addParagraph(text, style) {
+    if (style === undefined) style = 'default'
     this.doc.addParagraph(new this.docx.Paragraph(text).style(style))
   }
 
@@ -39,6 +44,7 @@ class word {
   }
 
   getRun(text, style) {
+    if (style === undefined) style = 'default'
     return new this.docx.Run(text).style(style)    
   }
 }
