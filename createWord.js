@@ -85,6 +85,8 @@ class word {
   }
 }
 
+
+// syntax example
 let obj = {
   fileName: 'test.docx',
   authors: [
@@ -100,19 +102,3 @@ let obj = {
 new word().start(obj)
 
 module.exports = new word()
-
-
-/*
-  parametersObj syntax example
-
-  parametersObj = {
-    paragraphs: [
-      'paragraph 1',
-      'paragraph 2'
-    ],
-    authors: [
-      'Gustavo err',
-      'outra pessoa'
-    ]
-  }
-*/
