@@ -5,6 +5,7 @@ class word {
     this.docx = require('docx')
     this.doc = new this.docx.Document()
     this.fs = require('fs')
+    this.paragraphStyle = 'default'
 
     this.doc.Styles
       .createParagraphStyle('default')
@@ -22,7 +23,10 @@ class word {
   start(parametersObj) {
     this.par = parametersObj
 
-    this.addParagraph('ETEC Vasco Antônio Venchiarutti', 'cover')
+    this.setParagraphStyle('cover')
+    this.addParagraph('ETEC Vasco Antônio Venchiarutti')
+    this.addBlanckLines(4)
+    this.addAuthors()
 
     this.create()
   }
@@ -33,9 +37,19 @@ class word {
     })
   }
 
-  addParagraph(text, style) {
-    if (style === undefined) style = 'default'
-    this.doc.addParagraph(new this.docx.Paragraph(text).style(style))
+  addAuthors() {
+    let arr = this.par.authors
+    let length = arr.length
+    for (let i=0;i<length;i++)
+      this.addParagraph(arr[i])
+  }
+
+  setParagraphStyle(style) {
+    this.paragraphStyle = style
+  }
+
+  addParagraph(text) {
+    this.doc.addParagraph(new this.docx.Paragraph(text).style(this.paragraphStyle))
   }
 
   addBlanckLines(numLines) {
@@ -43,13 +57,20 @@ class word {
       this.addParagraph('', '')
   }
 
-  getRun(text, style) {
-    if (style === undefined) style = 'default'
-    return new this.docx.Run(text).style(style)    
+  getRun(text) {
+    return new this.docx.Run(text).style(this.paragraphStyle)    
   }
 }
 
-new word().start({title: 'test.docx'})
+let obj = {
+  title: 'test.docx',
+  authors: [
+    'Gustavo',
+    'Vinícius',
+  ],
+}
+
+new word().start(obj)
 
 module.exports = new word()
 
