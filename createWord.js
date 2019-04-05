@@ -18,6 +18,12 @@ class word {
       .basedOn('default')
       .allCaps()
       .center()
+    
+    this.doc.Styles
+      .createParagraphStyle('coverBold')
+      .basedOn('default')
+      .center()
+      .bold()
   }
 
   start(parametersObj) {
@@ -26,14 +32,22 @@ class word {
     this.setParagraphStyle('cover')
     this.addParagraph('ETEC Vasco Antônio Venchiarutti')
     this.addBlanckLines(4)
+
     this.addAuthors()
+    this.addBlanckLines(8)
+
+    this.setParagraphStyle('coverBold')
+    this.addParagraph(this.par.title)
+    this.addParagraph(this.par.subTitle)
+
+    
 
     this.create()
   }
 
   create() {
       new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
-        this.fs.writeFileSync(this.par.title, buffer)
+        this.fs.writeFileSync(this.par.fileName, buffer)
     })
   }
 
@@ -63,11 +77,13 @@ class word {
 }
 
 let obj = {
-  title: 'test.docx',
+  fileName: 'test.docx',
   authors: [
     'Gustavo',
     'Vinícius',
   ],
+  title: 'Título',
+  subTitle: 'SubTítulo',
 }
 
 new word().start(obj)
