@@ -1,27 +1,19 @@
-/*function search(search){
-	let google = require('google')
-	let Algorithmia = require('./algorithmia')
-	 
-	google.resultsPerPage = 1
-	let nextCounter = 0
-	 
-	google(search, function (err, res){
-	  if (err) console.error(err)
-	 
-	  for (let i = 0; i < res.links.length; ++i) {
-		let link = res.links[i]
-		Algorithmia(link.href)
-		
-	  }
-	 
-	  if (nextCounter < 4) {
-		nextCounter += 1
-		if (res.next) res.next()
-	  }
-	})
+const Summarize = require('./algorithmia')
+async function Google(searchterm, count){
+	const google= require('googleapis').google
+	const Customsearch = google.customsearch('v1')
+	const pass = require('./credentials/package.json').googlesearch
+	const id = require('./credentials/package.json').customid
+	const answer = await Customsearch.cse.list({auth: pass, cx:id, q: searchterm, num: count})
+	for(let i = 0; i < count; i++){
+		let link = answer.data.items[i].link
+		if (link.indexOf('wikipedia') > -1 || link.indexOf('youtube') > -1){
+		} else if(link.indexOf(' ') >-1){
+			link = link.replace(' ', '')
+			summarizedContent = await Summarize(link)
+		}else{
+			summarizedContent = await Summarize(link)
+		}
 }
-module.exports = search*/
-const Google = require('googleapis').customsearch_v1.Customsearch
-const pass = require('./credentials/package.json').googlesearch
-const google = new Google()
-console.log(Object.getOwnPropertyNames(google))
+}
+module.exports = Google
