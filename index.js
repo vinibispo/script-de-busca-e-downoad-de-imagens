@@ -1,7 +1,7 @@
 const readline  = require('readline-sync')
 const google = require('./google.js')
 
-function start() {
+async function start() {
 	const contentsearch = {}
 	contentsearch.searchTerm = askAndReturnSearchTerm()
 	contentsearch.amount = askAndReturnAmount()
@@ -14,7 +14,8 @@ function start() {
 		return readline.question('Type how many results do you wanna have: ')
 	}
 	 
-	google(contentsearch.searchTerm, contentsearch.amount)
+	 content = await google(contentsearch.searchTerm, contentsearch.amount)
+	 return content
 }
 
-start()
+module.exports = start
