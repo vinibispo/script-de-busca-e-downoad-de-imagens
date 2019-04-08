@@ -10,7 +10,7 @@ function start() {
 	}
 	console.log(contentsearch)
 	 
-	google()
-};
+	google(contentsearch.searchTerm)
+}
 
 start()
