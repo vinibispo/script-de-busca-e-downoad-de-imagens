@@ -87,6 +87,10 @@ class Word {
     this.paragraphStyle = style
   }
 
+  setTitleStyle(style) {
+    this.titleStyle = style
+  }
+
   addParagraph(text) {
     this.doc.addParagraph(new this.docx.Paragraph(text).style(this.paragraphStyle))
   }
