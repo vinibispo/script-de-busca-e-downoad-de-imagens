@@ -10,17 +10,24 @@ class Word {
     this.docx = require('docx')
     this.doc = new this.docx.Document()
     this.fs = require('fs')
-    this.paragraphStyle = 'default'
+    this.paragraphStyle = 'defaultParagraph'
+    this.titleStyle = 'defaultTitle'
 
     this.doc.Styles
-      .createParagraphStyle('default')
+      .createParagraphStyle('defaultParagraph')
       .size(24)
       .spacing({ line: 360 }) 
       .font('Arial')
 
+    this.doc.styles
+      .createParagraphStyle('defaultTitle')
+      .font('Arial')
+      .size(32)
+      .color('2e74b5')
+
     this.doc.Styles
       .createParagraphStyle('cover')
-      .basedOn('default')
+      .basedOn('defaultParagraph')
       .center()
     
     this.doc.Styles
@@ -39,6 +46,7 @@ class Word {
     this.par = parametersObj
 
     this.addAbntPages()
+    this.addTitle('this is a title')
 
 
     this.create()
@@ -81,6 +89,10 @@ class Word {
 
   addParagraph(text) {
     this.doc.addParagraph(new this.docx.Paragraph(text).style(this.paragraphStyle))
+  }
+
+  addTitle(text) {
+    this.doc.addParagraph(new this.docx.Paragraph(text).style(this.titleStyle))
   }
 
   addBlanckLines(numLines) {
