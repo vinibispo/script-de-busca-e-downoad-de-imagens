@@ -1,6 +1,11 @@
 
+class Title {
+  constructor(title_text) {
+    this.txt = title_text
+  }
+}
 
-class word {
+class Word {
   constructor() {
     this.docx = require('docx')
     this.doc = new this.docx.Document()
@@ -97,8 +102,16 @@ let obj = {
   subTitle: 'SubTítulo',
   place: 'Jundiaí',
   year: '2018',
+
+  content: [
+
+  ],
 }
+
 
 new word().start(obj)
 
-module.exports = new word()
+module.exports = {
+  Word,
+  Title,
+}
