@@ -3,7 +3,7 @@
 class word {
   constructor() {
     this.docx = require('docx')
-    this.doc = new this.docx.Document()
+    this.doc({}) = new this.docx.Document()
     this.fs = require('fs')
     this.paragraphStyle = 'default'
 
