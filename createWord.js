@@ -38,6 +38,19 @@ class Word {
   start(parametersObj) {
     this.par = parametersObj
 
+    this.addAbntPages()
+
+
+    this.create()
+  }
+
+  create() {
+      new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
+        this.fs.writeFileSync(this.par.fileName, buffer)
+    })
+  }
+
+  addAbntPages() {
     this.setParagraphStyle('coverAllCaps')
     this.addParagraph('ETEC Vasco Antônio Venchiarutti')
     this.addBlanckLines(4)
@@ -53,16 +66,6 @@ class Word {
     this.setParagraphStyle('cover')
     this.addParagraph(this.par.place)
     this.addParagraph(this.par.year)
-
-
-
-    this.create()
-  }
-
-  create() {
-      new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
-        this.fs.writeFileSync(this.par.fileName, buffer)
-    })
   }
 
   addAuthors() {
@@ -109,7 +112,7 @@ let obj = {
 }
 
 
-new word().start(obj)
+new Word().start(obj)
 
 module.exports = {
   Word,
