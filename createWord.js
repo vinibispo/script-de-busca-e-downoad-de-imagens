@@ -46,7 +46,7 @@ class Word {
     this.par = parametersObj
 
     this.addAbntPages()
-    this.addTitle('this is a title')
+    this.addContentPages()
 
 
     this.create()
@@ -74,6 +74,16 @@ class Word {
     this.setParagraphStyle('cover')
     this.addParagraph(this.par.place)
     this.addParagraph(this.par.year)
+  }
+
+  addContentPages() {
+    let content = this.par.content
+    let length = content.length
+    for (let i=0;i<length;i++) {
+      if (content[i].constructor.name === 'Title') {
+        this.addTitle(content[i].txt)
+      }
+    }
   }
 
   addAuthors() {
