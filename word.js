@@ -15,9 +15,11 @@ async function start() {
 	packer.toBuffer(doc).then((buffer) => {
 		fs.writeFileSync('test.docx', buffer)
 	})*/
-	const summarized = await Summarizedcontent()
-	for(content of summarized){
-	console.log(content)
+	const list = await Summarizedcontent()
+	for(contentList of list){
+		for (content of contentList){
+			console.log(content)
+		}
 	}
 }
 
