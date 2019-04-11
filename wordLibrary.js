@@ -1,11 +1,11 @@
 
-class Title {
+class _Title {
   constructor(text) {
     this.txt = text
   }
 }
 
-class Paragraph {
+class _Paragraph {
   constructor(text) {
     this.txt = text
   }
@@ -23,16 +23,15 @@ class Word {
       this.par.content = []
 
     this._addAbntPages()
-
     this._setStyles()
   }
 
   addTitle(text) {
-    this.par.content.push(new Title(text))
+    this.par.content.push(new _Title(text))
   }
 
   addParagraph(text) {
-    this.par.content.push(new Paragraph(text))
+    this.par.content.push(new _Paragraph(text))
   }
 
   createFile() {
@@ -87,14 +86,17 @@ class Word {
     this._setParagraphStyle('cover')
     this._addParagraph(this.par.place)
     this._addParagraph(this.par.year)
+    this._setParagraphStyle('defaultParagraph')
   }
 
   _addContentPages() {
     let content = this.par.content
     let length = content.length
     for (let i=0;i<length;i++) {
-      if (content[i].constructor.name === 'Title') {
+      if (content[i].constructor.name === '_Title') {
         this._addTitle(content[i].txt)
+      } else if (content[i].constructor.name === '_Paragraph') {
+        this._addParagraph(content[i].txt)
       }
     }
   }
@@ -132,32 +134,8 @@ class Word {
   }
 }
 
-
-// syntax example
-let obj = {
-  fileName: 'test.docx',
-  authors: [
-    'Gustavo',
-    'Vinícius',
-  ],
-  title: 'Título',
-  subTitle: 'SubTítulo',
-  place: 'Jundiaí',
-  year: '2018',
-
-  content: [
-
-  ],
-}
-
-
-let word = new Word(obj)
-
-word.createFile()
-
-
-
 module.exports = {
   Word,
-  Title,
+  _Title,
+  _Paragraph,
 }
