@@ -6,12 +6,16 @@ class Title {
 }
 
 class Word {
-  constructor() {
+  constructor(params) {
     this.docx = require('docx')
     this.doc = new this.docx.Document()
     this.fs = require('fs')
     this.paragraphStyle = 'defaultParagraph'
     this.titleStyle = 'defaultTitle'
+    this.par = params
+
+    this._addAbntPages()
+    this._addContentPages()
 
     this.doc.Styles
       .createParagraphStyle('defaultParagraph')
@@ -42,17 +46,7 @@ class Word {
 
   }
 
-  createFile(parametersObj) {
-    this.par = parametersObj
-
-    this._addAbntPages()
-    this._addContentPages()
-
-
-    this._createFile()
-  }
-
-  _createFile() {
+  createFile() {
       new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
         this.fs.writeFileSync(this.par.fileName, buffer)
     })
@@ -102,7 +96,7 @@ class Word {
   }
 
   _addParagraph(text) {
-    this.doc._addParagraph(new this.docx.Paragraph(text).style(this.paragraphStyle))
+    this.doc.addParagraph(new this.docx.Paragraph(text).style(this.paragraphStyle))
   }
 
   _addTitle(text) {
@@ -138,7 +132,12 @@ let obj = {
 }
 
 
-new Word().start(obj)
+let word = new Word(obj)
+
+
+word.createFile()
+
+
 
 module.exports = {
   Word,
