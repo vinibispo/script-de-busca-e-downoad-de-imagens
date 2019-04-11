@@ -13,12 +13,20 @@ class Word {
     this.paragraphStyle = 'defaultParagraph'
     this.titleStyle = 'defaultTitle'
     this.par = params
+    if (this.par.content === undefined)
+      this.par.content = []
 
     this._addAbntPages()
-    this._addContentPages()
+
+    this._setStyles()
+  }
+
+  addTitle(text) {
+    this.par.content.push(new Title(text))
   }
 
   createFile() {
+      this._addContentPages()
       new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
         this.fs.writeFileSync(this.par.fileName, buffer)
     })
@@ -101,7 +109,7 @@ class Word {
   }
 
   _addTitle(text) {
-    this.doc._addParagraph(new this.docx.Paragraph(text).style(this.titleStyle))
+    this.doc.addParagraph(new this.docx.Paragraph(text).style(this.titleStyle))
   }
 
   _addBlanckLines(numLines) {
@@ -134,7 +142,6 @@ let obj = {
 
 
 let word = new Word(obj)
-
 
 word.createFile()
 
