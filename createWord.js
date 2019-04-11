@@ -1,21 +1,33 @@
 
+class Title {
+  constructor(title_text) {
+    this.txt = title_text
+  }
+}
 
-class word {
+class Word {
   constructor() {
     this.docx = require('docx')
     this.doc = new this.docx.Document()
     this.fs = require('fs')
-    this.paragraphStyle = 'default'
+    this.paragraphStyle = 'defaultParagraph'
+    this.titleStyle = 'defaultTitle'
 
     this.doc.Styles
-      .createParagraphStyle('default')
+      .createParagraphStyle('defaultParagraph')
       .size(24)
       .spacing({ line: 360 }) 
       .font('Arial')
 
+    this.doc.styles
+      .createParagraphStyle('defaultTitle')
+      .font('Arial')
+      .size(32)
+      .color('2e74b5')
+
     this.doc.Styles
       .createParagraphStyle('cover')
-      .basedOn('default')
+      .basedOn('defaultParagraph')
       .center()
     
     this.doc.Styles
@@ -33,6 +45,20 @@ class word {
   start(parametersObj) {
     this.par = parametersObj
 
+    this.addAbntPages()
+    this.addContentPages()
+
+
+    this.create()
+  }
+
+  create() {
+      new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
+        this.fs.writeFileSync(this.par.fileName, buffer)
+    })
+  }
+
+  addAbntPages() {
     this.setParagraphStyle('coverAllCaps')
     this.addParagraph('ETEC Vasco Antônio Venchiarutti')
     this.addBlanckLines(4)
@@ -48,16 +74,16 @@ class word {
     this.setParagraphStyle('cover')
     this.addParagraph(this.par.place)
     this.addParagraph(this.par.year)
-
-
-
-    this.create()
   }
 
-  create() {
-      new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
-        this.fs.writeFileSync(this.par.fileName, buffer)
-    })
+  addContentPages() {
+    let content = this.par.content
+    let length = content.length
+    for (let i=0;i<length;i++) {
+      if (content[i].constructor.name === 'Title') {
+        this.addTitle(content[i].txt)
+      }
+    }
   }
 
   addAuthors() {
@@ -71,8 +97,16 @@ class word {
     this.paragraphStyle = style
   }
 
+  setTitleStyle(style) {
+    this.titleStyle = style
+  }
+
   addParagraph(text) {
     this.doc.addParagraph(new this.docx.Paragraph(text).style(this.paragraphStyle))
+  }
+
+  addTitle(text) {
+    this.doc.addParagraph(new this.docx.Paragraph(text).style(this.titleStyle))
   }
 
   addBlanckLines(numLines) {
@@ -97,8 +131,16 @@ let obj = {
   subTitle: 'SubTítulo',
   place: 'Jundiaí',
   year: '2018',
+
+  content: [
+
+  ],
 }
 
-new word().start(obj)
 
-module.exports = new word()
+new Word().start(obj)
+
+module.exports = {
+  Word,
+  Title,
+}
