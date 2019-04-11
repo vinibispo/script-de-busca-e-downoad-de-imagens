@@ -1,7 +1,13 @@
 
 class Title {
-  constructor(title_text) {
-    this.txt = title_text
+  constructor(text) {
+    this.txt = text
+  }
+}
+
+class Paragraph {
+  constructor(text) {
+    this.txt = text
   }
 }
 
