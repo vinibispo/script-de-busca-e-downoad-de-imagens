@@ -16,34 +16,6 @@ class Word {
 
     this._addAbntPages()
     this._addContentPages()
-
-    this.doc.Styles
-      .createParagraphStyle('defaultParagraph')
-      .size(24)
-      .spacing({ line: 360 }) 
-      .font('Arial')
-
-    this.doc.styles
-      .createParagraphStyle('defaultTitle')
-      .font('Arial')
-      .size(32)
-      .color('2e74b5')
-
-    this.doc.Styles
-      .createParagraphStyle('cover')
-      .basedOn('defaultParagraph')
-      .center()
-    
-    this.doc.Styles
-      .createParagraphStyle('coverAllCaps')
-      .basedOn('cover')
-      .allCaps()
-    
-    this.doc.Styles
-      .createParagraphStyle('coverBold')
-      .basedOn('cover')
-      .bold()
-
   }
 
   createFile() {
@@ -52,6 +24,35 @@ class Word {
     })
   }
 
+  _setStyles() {
+    this.doc.Styles
+    .createParagraphStyle('defaultParagraph')
+    .size(24)
+    .spacing({ line: 360 }) 
+    .font('Arial')
+
+  this.doc.styles
+    .createParagraphStyle('defaultTitle')
+    .font('Arial')
+    .size(32)
+    .color('2e74b5')
+
+  this.doc.Styles
+    .createParagraphStyle('cover')
+    .basedOn('defaultParagraph')
+    .center()
+  
+  this.doc.Styles
+    .createParagraphStyle('coverAllCaps')
+    .basedOn('cover')
+    .allCaps()
+  
+  this.doc.Styles
+    .createParagraphStyle('coverBold')
+    .basedOn('cover')
+    .bold()
+  }
+  
   _addAbntPages() {
     this._setParagraphStyle('coverAllCaps')
     this._addParagraph('ETEC Vasco Antônio Venchiarutti')
