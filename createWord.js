@@ -31,6 +31,10 @@ class Word {
     this.par.content.push(new Title(text))
   }
 
+  addParagraph(text) {
+    this.par.content.push(new Paragraph(text))
+  }
+
   createFile() {
       this._addContentPages()
       new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
