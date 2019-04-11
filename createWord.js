@@ -42,79 +42,79 @@ class Word {
 
   }
 
-  start(parametersObj) {
+  createFile(parametersObj) {
     this.par = parametersObj
 
-    this.addAbntPages()
-    this.addContentPages()
+    this._addAbntPages()
+    this._addContentPages()
 
 
-    this.create()
+    this._createFile()
   }
 
-  create() {
+  _createFile() {
       new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
         this.fs.writeFileSync(this.par.fileName, buffer)
     })
   }
 
-  addAbntPages() {
-    this.setParagraphStyle('coverAllCaps')
-    this.addParagraph('ETEC Vasco Antônio Venchiarutti')
-    this.addBlanckLines(4)
+  _addAbntPages() {
+    this._setParagraphStyle('coverAllCaps')
+    this._addParagraph('ETEC Vasco Antônio Venchiarutti')
+    this._addBlanckLines(4)
 
-    this.addAuthors()
-    this.addBlanckLines(8)
+    this._addAuthors()
+    this._addBlanckLines(8)
 
-    this.setParagraphStyle('coverBold')
-    this.addParagraph(this.par.title)
-    this.addParagraph(this.par.subTitle)
-    this.addBlanckLines(15)
+    this._setParagraphStyle('coverBold')
+    this._addParagraph(this.par.title)
+    this._addParagraph(this.par.subTitle)
+    this._addBlanckLines(15)
 
-    this.setParagraphStyle('cover')
-    this.addParagraph(this.par.place)
-    this.addParagraph(this.par.year)
+    this._setParagraphStyle('cover')
+    this._addParagraph(this.par.place)
+    this._addParagraph(this.par.year)
   }
 
-  addContentPages() {
+  _addContentPages() {
     let content = this.par.content
     let length = content.length
     for (let i=0;i<length;i++) {
       if (content[i].constructor.name === 'Title') {
-        this.addTitle(content[i].txt)
+        this._addTitle(content[i].txt)
       }
     }
   }
 
-  addAuthors() {
+  _addAuthors() {
     let arr = this.par.authors
     let length = arr.length
     for (let i=0;i<length;i++)
-      this.addParagraph(arr[i])
+      this._addParagraph(arr[i])
   }
 
-  setParagraphStyle(style) {
+  _setParagraphStyle(style) {
     this.paragraphStyle = style
   }
 
-  setTitleStyle(style) {
+  _setTitleStyle(style) {
     this.titleStyle = style
   }
 
-  addParagraph(text) {
-    this.doc.addParagraph(new this.docx.Paragraph(text).style(this.paragraphStyle))
+  _addParagraph(text) {
+    this.doc._addParagraph(new this.docx.Paragraph(text).style(this.paragraphStyle))
   }
 
-  addTitle(text) {
-    this.doc.addParagraph(new this.docx.Paragraph(text).style(this.titleStyle))
+  _addTitle(text) {
+    this.doc._addParagraph(new this.docx.Paragraph(text).style(this.titleStyle))
   }
 
-  addBlanckLines(numLines) {
+  _addBlanckLines(numLines) {
     for (let i=0;i<numLines;i++)
-      this.addParagraph('', '')
+      this._addParagraph('', '')
   }
 
-  getRun(text) {
+  _getRun(text) {
     return new this.docx.Run(text).style(this.paragraphStyle)    
   }
 }
