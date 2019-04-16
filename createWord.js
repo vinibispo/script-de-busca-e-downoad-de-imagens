@@ -1,9 +1,9 @@
 
-
+const data = new Date()
 class word {
   constructor() {
     this.docx = require('docx')
-    this.doc({}) = new this.docx.Document()
+    this.doc = new this.docx.Document()
     this.fs = require('fs')
     this.paragraphStyle = 'default'
 
@@ -34,7 +34,7 @@ class word {
     this.par = parametersObj
 
     this.setParagraphStyle('coverAllCaps')
-    this.addParagraph('ETEC Vasco Antônio Venchiarutti')
+    this.addParagraph()
     this.addBlanckLines(4)
 
     this.addAuthors()
@@ -96,7 +96,7 @@ let obj = {
   title: 'Título',
   subTitle: 'SubTítulo',
   place: 'Jundiaí',
-  year: '2018',
+  year: data.getFullYear(),
 }
 
 new word().start(obj)
