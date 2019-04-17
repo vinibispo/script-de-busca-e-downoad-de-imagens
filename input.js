@@ -15,8 +15,9 @@ async function nameofFile(){
 }
 async function getAllContent(){
   content = await Index()
-  cont = content.results
-  return cont
+  contentall = content.results
+  contentList = contentall.summarize
+  return contentList
 }
 async function getAuthors(){
   amount = read.question('Type how many authors that has: ')
@@ -39,7 +40,7 @@ function getPlace(){
   place = read.question("Type the place: ")
   return place
 }
-async function createWord(){
+/*async function createWord(){
   const obj = {
     authors: await getAuthors(),
       fileName : await nameofFile() + '.docx',
@@ -50,4 +51,11 @@ async function createWord(){
 }
 word.start(obj)
 }
-createWord()
+createWord()*/
+async function start(){
+  contentList = await getAllContent()
+  for(content of contentList){
+    console.log(content)
+  }
+}
+start()

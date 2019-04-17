@@ -9,7 +9,8 @@ async function Google(searchterm, count){
 	const answer = await Customsearch.cse.list({auth: pass, cx:id, q: searchterm, num: count})
 	SummarizedList = []
 	LinkList = []
-	List = []
+	List = {}
+	
 	for(let i = 0; i < count; i++){
 		let link = answer.data.items[i].link
 		if (link.indexOf('wikipedia') > -1){
@@ -25,8 +26,8 @@ async function Google(searchterm, count){
 			LinkList.push(link)
 		}
 	}
-	List.push(LinkList)
-	List.push(SummarizedList)
+	List.summarize = SummarizedList
+	List.link = LinkList
 	return List
 }
 module.exports = Google
