@@ -1,4 +1,7 @@
-const date = new Date()
+function getYear(){
+  const date = new Date()
+  return date.getFullYear()
+}
 const word = require('./createWord')
 const read = require('readline-sync')
 async function Index(){
@@ -23,20 +26,28 @@ async function getAuthors(){
     authors.push(author)
   }
   return authors
-}/*
+}
+function getTitle(){
+  title = read.question("Type the title: ")
+  return title
+}
+function getSubtitle(){
+  subtitle = read.question("Type the subtitle: ")
+  return subtitle
+}
+function getPlace(){
+  place = read.question("Type the place: ")
+  return place
+}
 async function createWord(){
   const obj = {
     authors: await getAuthors(),
       fileName : await nameofFile() + '.docx',
-      title: 'Título',
-      subTitle: 'SubTítulo',
-      place: 'Jundiaí',
-      year: date.getFullYear()
+      title: getTitle(),
+      subTitle: getSubtitle(),
+      place: getPlace(),
+      year: getYear()
 }
 word.start(obj)
 }
-createWord()*/
-async function start(){
-  console.log(await getAllContent())
-}
-start()
+createWord()
