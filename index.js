@@ -5,17 +5,21 @@ async function start() {
 	const contentsearch = {}
 	contentsearch.searchTerm = askAndReturnSearchTerm()
 	contentsearch.amount = askAndReturnAmount()
+	contentsearch.results = await findResults()
 
 	function askAndReturnSearchTerm() {
-	 	return readline.question('Type a search term: ')
+		 question = readline.question('Type a search term: ')
+		 return question
 	}
-	console.log(contentsearch)
 	function askAndReturnAmount(){
 		return readline.question('Type how many results do you wanna have: ')
 	}
-	 
-	content = await google(contentsearch.searchTerm, contentsearch.amount)
-	 return content
+	async function findResults(){
+		content = await google(contentsearch.searchTerm, contentsearch.amount)
+		return content
+	}
+	return contentsearch
+	
 	/*
 	let obj = {
 		fileName: 'test.docx', 
@@ -41,5 +45,4 @@ async function start() {
 
 	word.start(obj)*/
 }
-
-module.exports = start
+module.exports = start()
