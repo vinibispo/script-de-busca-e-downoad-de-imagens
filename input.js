@@ -56,7 +56,6 @@ async function createWord(){
   }
 
   word.createFile()
-  console.log(Object.getOwnPropertyNames(word))
 }
 createWord()
 
