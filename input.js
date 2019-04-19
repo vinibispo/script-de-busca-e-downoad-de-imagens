@@ -1,4 +1,4 @@
-import { Word } from './createWord'
+let Word = require('./createWord')
 const read = require('readline-sync')
 
 function getYear(){
