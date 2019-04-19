@@ -50,13 +50,13 @@ async function createWord(){
     place: getPlace(),
     year: getYear(),
   }
-  let word = new Word(obj)
-
+  let word = new Word.Word(obj)
   for (content of await Paragraphing()){
     word.addParagraph(content)
   }
 
   word.createFile()
+  console.log(Object.getOwnPropertyNames(word))
 }
 createWord()
 
