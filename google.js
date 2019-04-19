@@ -14,7 +14,7 @@ async function Google(searchterm, count){
 	for(let i = 0; i < count; i++){
 		let link = answer.data.items[i].link
 		if (link.indexOf('wikipedia') > -1){
-			const wiki = await Wikipedia(link)
+			const wiki = await Wikipedia(searchterm)
 		} else if(link.indexOf(' ') >-1){
 			link = link.replace(' ', '')
 			const summarizedContent = await Summarize(link)

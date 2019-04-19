@@ -7,10 +7,10 @@ async function Summarize(link){
     const SummarizeContent = await SummarizeResponse.get()
     return SummarizeContent
 }
-async function fetchContentFromWikipedia(link){
+async function fetchContentFromWikipedia(content){
     const AlgoAuthenticated = await algorithmia(pass)
     const wikipediaAlgorithm = await AlgoAuthenticated.algo('web/WikipediaParser/0.1.2?timeout=300')
-    const wikipediaResponse = await wikipediaAlgorithm.pipe()
+    const wikipediaResponse = await wikipediaAlgorithm.pipe(content)
     const wikipediaContent = await wikipediaResponse.get()
     return wikipediaContent
 }
