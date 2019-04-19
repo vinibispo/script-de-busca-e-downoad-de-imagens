@@ -1,9 +1,10 @@
+import { Word } from './createWord'
+const read = require('readline-sync')
+
 function getYear(){
   const date = new Date()
   return date.getFullYear()
 }
-let word = require('./createWord')
-const read = require('readline-sync')
 async function Index(){
   content = await require('./index')
   return content
@@ -43,18 +44,22 @@ function getPlace(){
 async function createWord(){
   const obj = {
     authors: await getAuthors(),
-      fileName : await nameofFile() + '.docx',
-      title: getTitle(),
-      subTitle: getSubtitle(),
-      place: getPlace(),
-      year: getYear()
-}
- for (content of await Paragraphing()){
-   word.addParagraph(content)
- }
- word.start(obj)
+    fileName : await nameofFile() + '.docx',
+    title: getTitle(),
+    subTitle: getSubtitle(),
+    place: getPlace(),
+    year: getYear(),
+  }
+  let word = new Word(obj)
+
+  for (content of await Paragraphing()){
+    word.addParagraph(content)
+  }
+
+  word.createFile()
 }
 createWord()
+
 async function Paragraphing(){
   list = []
   contentList = await getAllContent()
