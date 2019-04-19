@@ -1,5 +1,3 @@
-
-const data = new Date()
 class word {
   constructor() {
     this.docx = require('docx')
@@ -87,7 +85,7 @@ class word {
 
 
 // syntax example
-let obj = {
+/*let obj = {
   fileName: 'test.docx',
   authors: [
     'Gustavo',
@@ -100,5 +98,5 @@ let obj = {
 }
 
 new word().start(obj)
-
+*/
 module.exports = new word()

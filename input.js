@@ -2,7 +2,7 @@ function getYear(){
   const date = new Date()
   return date.getFullYear()
 }
-const word = require('./createWord')
+let word = require('./createWord')
 const read = require('readline-sync')
 async function Index(){
   content = await require('./index')
@@ -40,7 +40,7 @@ function getPlace(){
   place = read.question("Type the place: ")
   return place
 }
-/*async function createWord(){
+async function createWord(){
   const obj = {
     authors: await getAuthors(),
       fileName : await nameofFile() + '.docx',
@@ -49,13 +49,17 @@ function getPlace(){
       place: getPlace(),
       year: getYear()
 }
-word.start(obj)
+ for (content of await Paragraphing()){
+   word.addParagraph(content)
+ }
+ word.start(obj)
 }
-createWord()*/
-async function start(){
+createWord()
+async function Paragraphing(){
+  list = []
   contentList = await getAllContent()
-  for(content of contentList){
-    console.log(content)
-  }
+ for (content of contentList){
+   list.push(content)
+ }
+ return list
 }
-start()
