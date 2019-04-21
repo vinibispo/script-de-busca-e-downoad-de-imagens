@@ -18,6 +18,6 @@ async function start() {
 		content = await google(contentsearch.searchTerm, contentsearch.amount)
 		return content
 	}
-	console.log(contentsearch.results)
+	return contentsearch
 }
 module.exports = start()

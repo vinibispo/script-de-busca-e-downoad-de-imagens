@@ -17,17 +17,14 @@ async function Google(searchterm, count){
 			const wiki = await Wikipedia(searchterm)
 			SummarizedList.push(wiki)
 			LinkList.push(link)
-
-		}/* else if(link.indexOf(' ') >-1){
-			link = link.replace(' ', '')
-			const summarizedContent = await Summarize(link)
-			SummarizedList.push(summarizedContent)
-			LinkList.push(link)
+		}else if (link.indexOf('youtube') > -1 || link.indexOf('g1') > -1){
 		}else{
 			const summarizedContent = await Summarize(link)
-			SummarizedList.push(summarizedContent)
-			LinkList.push(link)
-		}*/
+			if (summarizedContent.length != 0){
+				SummarizedList.push(summarizedContent)
+				LinkList.push(link)
+			}
+		}
 	}
 	List.summarize = SummarizedList
 	List.link = LinkList
