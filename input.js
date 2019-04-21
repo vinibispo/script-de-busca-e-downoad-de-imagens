@@ -51,7 +51,6 @@ async function createWord(){
     year: getYear(),
   }
   let word = new Word.Word(obj)
-
   for (content of await Paragraphing()){
     word.addParagraph(content)
   }
