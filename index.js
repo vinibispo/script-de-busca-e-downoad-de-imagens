@@ -19,30 +19,5 @@ async function start() {
 		return content
 	}
 	return contentsearch
-	
-	/*
-	let obj = {
-		fileName: 'test.docx', 
-		authors: [
-			'Gustavo',
-			'Vinícius',
-		],
-		title: 'Título',
-		subTitle: 'SubTítulo',
-		place: 'Jundiaí',
-		year: '2018',
-
-		content: [
-
-		]
-	}
-
-	let titulo = new word.Title('fdsafsddfasf')
-	let text = new word.text('fdsafsad')
-
-	content.push(titulo)
-
-
-	word.start(obj)*/
 }
 module.exports = start()

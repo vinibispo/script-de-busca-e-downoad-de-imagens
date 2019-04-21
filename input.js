@@ -63,6 +63,11 @@ async function Paragraphing(){
   list = []
   contentList = await getAllContent()
  for (content of contentList){
+   if (typeof content == "object"){
+     for(cont of content){
+       list.push(cont)
+     }
+   }
    list.push(content)
  }
  return list
