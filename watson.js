@@ -7,17 +7,23 @@ const nlu = new nluv1({
     version: '2019-02-01',
     url: url
 })
-nlu.analyze({
-    text: text,
-    features:{
-        keywords:{}
-    },
-},
-    (err, res) =>{
-        if (err) {
-            throw err
-        }
-        console.log(JSON.stringify(res, null, 4))
-        process.exit(0)
-    }
-)
+
+async function fetchKeywordsFromWatson(sentences){
+    promise = new Promise((resolve, reject) =>{
+        nlu.analyze({
+            text: sentences,
+            features:{
+                keywords:{}
+        },
+    }, (err, res) => {
+                if (err) {
+                    throw err
+                }
+                const keywords = res.keywords.map((keyword) =>{
+                    return keyword.text})
+                resolve(keywords)
+            })
+    })
+    return await promise
+}
+module.exports = fetchKeywordsFromWatson
