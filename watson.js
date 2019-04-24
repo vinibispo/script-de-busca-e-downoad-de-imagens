@@ -27,7 +27,3 @@ async function fetchKeywordsFromWatson(sentences){
     return await promise
 }
 module.exports = fetchKeywordsFromWatson
-async function start(){
-    console.log(await fetchKeywordsFromWatson(text))
-}
-start()
