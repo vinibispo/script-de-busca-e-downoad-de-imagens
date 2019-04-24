@@ -1,7 +1,7 @@
 const pass = require('./credentials/package.json').apikey
 const url = require('./credentials/package.json').url
 const text = `I'm love with someone and I don't have courage to say how I feel`
-const nluv1 = require('watson-developer-cloud/natural-language-understanding/v1')
+const nluv1 = require('ibm-watson/natural-language-understanding/v1')
 const nlu = new nluv1({
     iam_apikey: pass,
     version: '2019-02-01',
@@ -27,3 +27,7 @@ async function fetchKeywordsFromWatson(sentences){
     return await promise
 }
 module.exports = fetchKeywordsFromWatson
+async function start(){
+    console.log(await fetchKeywordsFromWatson(text))
+}
+start()
