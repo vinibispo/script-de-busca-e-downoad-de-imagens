@@ -25,6 +25,5 @@ async function start() {
 		return keywords
 	}
 	return contentsearch
-
 }
 module.exports = start()

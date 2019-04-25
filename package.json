@@ -25,7 +25,6 @@
     "googleapis": "^39.1.0",
     "ibm-watson": "^4.0.1",
     "readline-sync": "^1.4.9",
-    "sinc": "0.0.1",
-    "watson-developer-cloud": "^4.0.1"
+    "sinc": "0.0.1"
   }
 }
