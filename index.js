@@ -1,11 +1,13 @@
 const readline  = require('readline-sync')
 const google = require('./google.js')
+const watson = require('./watson')
 
 async function start() {
 	const contentsearch = {}
 	contentsearch.searchTerm = askAndReturnSearchTerm()
 	contentsearch.amount = askAndReturnAmount()
 	contentsearch.results = await findResults()
+	contentsearch.keywords = await fetchKeywords()
 
 	function askAndReturnSearchTerm() {
 		 question = readline.question('Type a search term: ')
@@ -18,31 +20,11 @@ async function start() {
 		content = await google(contentsearch.searchTerm, contentsearch.amount)
 		return content
 	}
-	return contentsearch
-	
-	/*
-	let obj = {
-		fileName: 'test.docx', 
-		authors: [
-			'Gustavo',
-			'Vinícius',
-		],
-		title: 'Título',
-		subTitle: 'SubTítulo',
-		place: 'Jundiaí',
-		year: '2018',
-
-		content: [
-
-		]
+	async function fetchKeywords(){
+		keywords = await watson(content.results)
+		return keywords
 	}
+	return contentsearch
 
-	let titulo = new word.Title('fdsafsddfasf')
-	let text = new word.text('fdsafsad')
-
-	content.push(titulo)
-
-
-	word.start(obj)*/
 }
 module.exports = start()

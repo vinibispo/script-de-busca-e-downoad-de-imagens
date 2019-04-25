@@ -14,16 +14,16 @@ async function Google(searchterm, count){
 	for(let i = 0; i < count; i++){
 		let link = answer.data.items[i].link
 		if (link.indexOf('wikipedia') > -1){
-			const wiki = await Wikipedia(link)
-		} else if(link.indexOf(' ') >-1){
-			link = link.replace(' ', '')
-			const summarizedContent = await Summarize(link)
-			SummarizedList.push(summarizedContent)
+			const wiki = await Wikipedia(searchterm)
+			SummarizedList.push(wiki)
 			LinkList.push(link)
+		}else if (link.indexOf('youtube') > -1 || link.indexOf('g1') > -1){
 		}else{
 			const summarizedContent = await Summarize(link)
-			SummarizedList.push(summarizedContent)
-			LinkList.push(link)
+			if (summarizedContent.length != 0){
+				SummarizedList.push(summarizedContent)
+				LinkList.push(link)
+			}
 		}
 	}
 	List.summarize = SummarizedList
