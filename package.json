@@ -10,7 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/vinibispo/script-de-criacao-de-artigos-abnt.git"
   },
-  "author": "Vinícius Bispo",
+  "authors": [
+    "Vinícius Bispo",
+    "Gustavo da Cruz Vieira"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vinibispo/script-de-criacao-de-artigos-abnt/issues"

@@ -1,104 +1,140 @@
+class _Title {
+  constructor(text) {
+    this.txt = text
+  }
+}
 
+class _Paragraph {
+  constructor(text) {
+    this.txt = text
+  }
+}
 
-class word {
-  constructor() {
+class Word {
+  constructor(params) {
     this.docx = require('docx')
     this.doc = new this.docx.Document()
     this.fs = require('fs')
-    this.paragraphStyle = 'default'
+    this.paragraphStyle = 'defaultParagraph'
+    this.titleStyle = 'defaultTitle'
+    this.par = params
+    if (this.par.content === undefined)
+      this.par.content = []
 
-    this.doc.Styles
-      .createParagraphStyle('default')
-      .size(24)
-      .spacing({ line: 360 }) 
-      .font('Arial')
-
-    this.doc.Styles
-      .createParagraphStyle('cover')
-      .basedOn('default')
-      .center()
-    
-    this.doc.Styles
-      .createParagraphStyle('coverAllCaps')
-      .basedOn('cover')
-      .allCaps()
-    
-    this.doc.Styles
-      .createParagraphStyle('coverBold')
-      .basedOn('cover')
-      .bold()
-
+    this._addAbntPages()
+    this._setStyles()
   }
 
-  start(parametersObj) {
-    this.par = parametersObj
-
-    this.setParagraphStyle('coverAllCaps')
-    this.addParagraph('ETEC Vasco Antônio Venchiarutti')
-    this.addBlanckLines(4)
-
-    this.addAuthors()
-    this.addBlanckLines(8)
-
-    this.setParagraphStyle('coverBold')
-    this.addParagraph(this.par.title)
-    this.addParagraph(this.par.subTitle)
-    this.addBlanckLines(15)
-
-    this.setParagraphStyle('cover')
-    this.addParagraph(this.par.place)
-    this.addParagraph(this.par.year)
-
-
-
-    this.create()
+  addTitle(text) {
+    this.par.content.push(new _Title(text))
   }
 
-  create() {
+  addParagraph(text) {
+    this.par.content.push(new _Paragraph(text))
+  }
+
+  createFile() {
+      this._addContentPages()
       new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
         this.fs.writeFileSync(this.par.fileName, buffer)
     })
   }
 
-  addAuthors() {
+  _setStyles() {
+    this.doc.Styles
+    .createParagraphStyle('defaultParagraph')
+    .size(24)
+    .spacing({ line: 360 }) 
+    .font('Arial')
+
+  this.doc.styles
+    .createParagraphStyle('defaultTitle')
+    .font('Arial')
+    .size(32)
+    .color('2e74b5')
+
+  this.doc.Styles
+    .createParagraphStyle('cover')
+    .basedOn('defaultParagraph')
+    .center()
+  
+  this.doc.Styles
+    .createParagraphStyle('coverAllCaps')
+    .basedOn('cover')
+    .allCaps()
+  
+  this.doc.Styles
+    .createParagraphStyle('coverBold')
+    .basedOn('cover')
+    .bold()
+  }
+  
+  _addAbntPages() {
+    this._setParagraphStyle('coverAllCaps')
+    this._addParagraph('ETEC Vasco Antônio Venchiarutti')
+    this._addBlanckLines(4)
+
+    this._addAuthors()
+    this._addBlanckLines(8)
+
+    this._setParagraphStyle('coverBold')
+    this._addParagraph(this.par.title)
+    this._addParagraph(this.par.subTitle)
+    this._addBlanckLines(15)
+
+    this._setParagraphStyle('cover')
+    this._addParagraph(this.par.place)
+    this._addParagraph(this.par.year)
+    this._setParagraphStyle('defaultParagraph')
+  }
+
+  _addContentPages() {
+    let content = this.par.content
+    let length = content.length
+    for (let i=0;i<length;i++) {
+      if (content[i].constructor.name === '_Title') {
+        this._addTitle(content[i].txt)
+      } else if (content[i].constructor.name === '_Paragraph') {
+        this._addParagraph(content[i].txt)
+      }
+    }
+  }
+
+  _addAuthors() {
     let arr = this.par.authors
     let length = arr.length
     for (let i=0;i<length;i++)
-      this.addParagraph(arr[i])
+      this._addParagraph(arr[i])
   }
 
-  setParagraphStyle(style) {
+  _setParagraphStyle(style) {
     this.paragraphStyle = style
   }
 
-  addParagraph(text) {
+  _setTitleStyle(style) {
+    this.titleStyle = style
+  }
+
+  _addParagraph(text) {
     this.doc.addParagraph(new this.docx.Paragraph(text).style(this.paragraphStyle))
   }
 
-  addBlanckLines(numLines) {
-    for (let i=0;i<numLines;i++)
-      this.addParagraph('', '')
+  _addTitle(text) {
+    this.doc.addParagraph(new this.docx.Paragraph(text).style(this.titleStyle))
   }
 
-  getRun(text) {
+  _addBlanckLines(numLines) {
+    for (let i=0;i<numLines;i++)
+      this._addParagraph('', '')
+  }
+
+  _getRun(text) {
     return new this.docx.Run(text).style(this.paragraphStyle)    
   }
 }
 
-
-// syntax example
-let obj = {
-  fileName: 'test.docx',
-  authors: [
-    'Gustavo',
-    'Vinícius',
-  ],
-  title: 'Título',
-  subTitle: 'SubTítulo',
-  place: 'Jundiaí',
-  year: '2018',
+module.exports = {
+  Word,
+  _Title,
+  _Paragraph,
 }
-
-new word().start(obj)
-
-module.exports = new word()
