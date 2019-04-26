@@ -3,13 +3,15 @@ async function getListImages(searchterm){
 	const Customsearch = google.customsearch('v1')
 	const pass = require('./credentials/package.json').googlesearch
 	const id = require('./credentials/package.json').imgsearch
-    const answer = await Customsearch.cse.list({auth: pass, cx:id, q: searchterm, num: 2})
-    console.dir(answer)
+    const response = await Customsearch.cse.list({auth: pass, cx:id, q: searchterm, num: 2,searchType:'image', imgSize:'huge'})
+    const imgURL = response.data.items.map((items) =>{
+        return items.link
+    })
+    console.log(imgURL)
 }
 async function getImages(searchterm){
     const getImages = await getListImages(searchterm)
-    console.log(getImages)
+    console.dir(getImages, {depth: null})
 }
-getListImages('bolo de cenoura')
 
-module.exports = getImages
+module.exports = getListImages
