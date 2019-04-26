@@ -39,14 +39,15 @@ async function start() {
 		}
 	}
 	async function fetchImages(){
-		keywordList = await contentsearch.keywords
+		const keywordList = await contentsearch.keywords
+		const search = await contentsearch.searchTerm
 		for(keywords of keywordList){
 			if(typeof keywords == "object"){
 				for(keyword of keywords){
-					image(keyword)
+					image(search + keyword)
 				}
 			} else{
-				image(keywords)
+				image(search + keywords)
 			}
 		}
 	}

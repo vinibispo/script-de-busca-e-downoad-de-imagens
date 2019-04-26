@@ -1,4 +1,4 @@
-async function getListImages(searchterm){
+async function getImages(searchterm){
     const google= require('googleapis').google
 	const Customsearch = google.customsearch('v1')
 	const pass = require('./credentials/package.json').googlesearch
@@ -7,11 +7,22 @@ async function getListImages(searchterm){
     const imgURL = response.data.items.map((items) =>{
         return items.link
     })
-    console.log(imgURL)
+    return imgURL
 }
-async function getImages(searchterm){
-    const getImages = await getListImages(searchterm)
-    console.dir(getImages, {depth: null})
+async function downloadImage(searchterm){
+    imageURL = await getImages()
+    for (images of imageURL){
+        if(typeof images == "object"){
+            for (img of images){
+                file = {
+                    url: img,
+                    dest: '/img/'
+                }
+                const {filename, image} = await download.image(file)
+                console.log('File saved')
+            }
+        }
+    }
 }
-
-module.exports = getListImages
+downloadImage()
+module.exports = getImages
