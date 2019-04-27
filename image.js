@@ -9,36 +9,30 @@ async function getImages(searchterm){
     })
     return imgURL
 }
-async function downloadImage(searchterm){
+async function downloadAllImage(searchterm, keywords){
     imageURL = await getImages(searchterm)
-    for (images of imageURL){
-        if(typeof images == "object"){
-            for (img of images){
+    let i = 0
+   for (images of imageURL){
+            for(keyword of keywords){
                 try {
-                    const {filename, image} = await download.image({
-                        url: img,
-                        dest: './img/' + filename
-                    })
-                    console.log('File saved')
-                    break   
-                } catch (e) {
-                    console.log('erro ao baixar')
+                    i++
+                    key = keyword + i
+                    await downloadAndSave(searchterm, key, images)
+                    console.log(`file saved in ${searchterm} ${key}`)
+                    break
+                } catch (error) {
+                    console.log(`erro ao baixar ${searchterm} ${key} there a error ${error}`)
                 }
             }
-        } else{
-            try {
-                await downloadAndSave(searchterm, images)
-                console.log('File saved')
-            } catch (e) {
-                console.log('erro ao baixar')
-            }
         }
-    }
+    // console.log(`${imageURL} and ${Object.getOwnPropertyNames(imageURL)}`)
 }
-async function downloadAndSave(filename, url){
+async function downloadAndSave(filename, keyword, url){
     const download = require('image-downloader')
-    return download.image(filename, url)
+    return download.image({
+        dest:`img/${filename} ${keyword}.jpg`,
+        url: url})
 
 }
-downloadImage('Bethoven')
-module.exports = getImages
+// downloadAllImage('Albert Einstein', ['bomba', 'relatividade'])
+module.exports = downloadAllImage
