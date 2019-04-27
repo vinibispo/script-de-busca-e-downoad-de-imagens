@@ -10,19 +10,35 @@ async function getImages(searchterm){
     return imgURL
 }
 async function downloadImage(searchterm){
-    imageURL = await getImages()
+    imageURL = await getImages(searchterm)
     for (images of imageURL){
         if(typeof images == "object"){
             for (img of images){
-                file = {
-                    url: img,
-                    dest: '/img/'
+                try {
+                    const {filename, image} = await download.image({
+                        url: img,
+                        dest: './img/' + filename
+                    })
+                    console.log('File saved')
+                    break   
+                } catch (e) {
+                    console.log('erro ao baixar')
                 }
-                const {filename, image} = await download.image(file)
+            }
+        } else{
+            try {
+                await downloadAndSave(searchterm, images)
                 console.log('File saved')
+            } catch (e) {
+                console.log('erro ao baixar')
             }
         }
     }
 }
-downloadImage()
+async function downloadAndSave(filename, url){
+    const download = require('image-downloader')
+    return download.image(filename, url)
+
+}
+downloadImage('Bethoven')
 module.exports = getImages
