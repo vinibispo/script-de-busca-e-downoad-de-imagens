@@ -1,29 +1,26 @@
-const readline  = require('readline-sync')
-const google = require('./google.js')
-const watson = require('./watson')
-const image = require('./image')
+const robots = {
+	// google: require('./robots/google'),
+ 	// watson: require('./robots/watson'),
+	// image: require('./robots/image'),
+	userInput : require('./robots/user-input'),
+	text: require('./robots/text') 
+}
 
 async function start() {
-	const contentsearch = {}
-	contentsearch.searchTerm = askAndReturnSearchTerm()
-	contentsearch.amount = askAndReturnAmount()
-	contentsearch.results = await findResults()
-	contentsearch.keywords = await fetchKeywords()
-	contentsearch.img = await fetchImages()
-
-	function askAndReturnSearchTerm() {
-		 question = readline.question('Type a search term: ')
-		 return question
-	}
-	function askAndReturnAmount(){
-		return readline.question('Type how many results do you wanna have: ')
-	}
-	async function findResults(){
-		content = await google(contentsearch.searchTerm, contentsearch.amount)
+	const content = {}
+	// content.amount = askAndReturnAmount()
+	// content.results = await findResults()
+	// content.keywords = await fetchKeywords()
+	// content.img = await fetchImages()
+	robots.userInput(content)
+	await robots.text(content)
+	console.log(content)
+	/*async function findResults(content){
+		content = await google(content.searchTerm, content.amount)
 		return content
 	}
 	async function fetchKeywords(){
-		sentences = await contentsearch.results.summarize
+		sentences = await content.results.summarize
 		keywords = []
 		for(let sentence of sentences){
 			if(typeof sentence == "object"){
@@ -47,12 +44,12 @@ async function start() {
 		}
 	}
 	async function fetchImages(){
-		const keywordList = await contentsearch.keywords
-		const search = await contentsearch.searchTerm
+		const keywordList = await content.keywords
+		const search = await content.searchTerm
 		for(keywords of keywordList)
 			if(typeof keywords == "object"){
 				image(search, keywords)
 		}
-	}
+	} */
 }
-module.exports = start()
+start()

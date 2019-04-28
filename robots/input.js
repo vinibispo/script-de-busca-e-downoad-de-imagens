@@ -6,7 +6,7 @@ function getYear(){
   return date.getFullYear()
 }
 async function Index(){
-  content = await require('./index')
+  content = await require('../index')
   return content
 }
 async function nameofFile(){

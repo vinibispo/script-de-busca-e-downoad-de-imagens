@@ -1,4 +1,4 @@
-const Algorithmia = require('./algorithmia')
+const Algorithmia = require('./text')
 const Wikipedia = Algorithmia.wikipedia
 const Summarize = Algorithmia.summarize
 async function Google(searchterm, count){
