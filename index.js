@@ -29,11 +29,19 @@ async function start() {
 			if(typeof sentence == "object"){
 				for (text of sentence){
 					const keyword =await watson(text)
+					console.log(keyword)
 					keywords.push(keyword)
+					if(keywords.length >= 20){
+						break
+					}
 				}
 			} else{
 				const keyword = await watson(sentence)
 				keywords.push(keyword)
+				console.log(`${keyword} key`)
+				if(keywords.length >= 20){
+					break
+				}
 			}
 			return keywords
 		}
