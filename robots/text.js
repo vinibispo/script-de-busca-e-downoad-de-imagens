@@ -2,17 +2,19 @@ const algorithmia = require('algorithmia');
 const pass = require('../credentials/package.json').algo
 const sourceBoundaryDetection = require('sbd')
 async function robot(content){
-    await fetchContentFromWikipedia(content)
-    sanitizeContent(content)
-    breakIntoSentences(content)
+    const obj = {
+        Wiki: await Wikipedia(content),
+        // Summarize: await Summarize(content)
+    }
+    return obj
 }
-async function Summarize(link){
-    const algoAuthenticated = await algorithmia(pass)
-   const SummarizeURL = await algoAuthenticated.algo("nlp/SummarizeURL/0.1.4?timeout=300") // timeout is optional
-    const SummarizeResponse = await SummarizeURL.pipe(link)
-    const SummarizeContent = await SummarizeResponse.get()
-    return SummarizeContent
-}
+// async function Summarize(content){
+//     const algoAuthenticated = await algorithmia(pass)
+//    const SummarizeURL = await algoAuthenticated.algo("nlp/SummarizeURL/0.1.4?timeout=300") // timeout is optional
+//     const SummarizeResponse = await SummarizeURL.pipe(content.sentences.link)
+//     const SummarizeContent = await SummarizeResponse.get()
+//     return SummarizeContent
+// }
 async function fetchContentFromWikipedia(content){
     const AlgoAuthenticated = await algorithmia(pass)
     const wikipediaAlgorithm = await AlgoAuthenticated.algo('web/WikipediaParser/0.1.2?timeout=300')
@@ -44,10 +46,16 @@ function breakIntoSentences(content){
         content.sentences.push({
             text: sentence,
             keywords: [],
-            images: []
+            images: [],
+            link: []
         })
     })
     
+}
+async function Wikipedia(content){
+    await fetchContentFromWikipedia(content)
+    sanitizeContent(content)
+    breakIntoSentences(content)
 }
 // const Algorithmia = {
 //     summarize: Summarize,

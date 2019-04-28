@@ -1,5 +1,5 @@
 const robots = {
-	// google: require('./robots/google'),
+	google: require('./robots/google'),
  	// watson: require('./robots/watson'),
 	// image: require('./robots/image'),
 	userInput : require('./robots/user-input'),
@@ -13,12 +13,11 @@ async function start() {
 	// content.keywords = await fetchKeywords()
 	// content.img = await fetchImages()
 	robots.userInput(content)
-	await robots.text(content)
-	console.log(content)
-	/*async function findResults(content){
-		content = await google(content.searchTerm, content.amount)
-		return content
-	}
+	text = await robots.text(content)
+	await text.Wiki
+	await robots.google(content)
+	console.log(content.sentences)
+	/*
 	async function fetchKeywords(){
 		sentences = await content.results.summarize
 		keywords = []
