@@ -68,11 +68,20 @@ class Word {
     .createParagraphStyle('coverBold')
     .basedOn('cover')
     .bold()
+  
+  this.doc.Styles
+    .createParagraphStyle('falsoResumo')
+    .basedOn('defaultParagraph')
+    .justified()
+    .right()
+
   }
   
   _addAbntPages() {
+    const schoolName = 'ETEC Vasco Antônio Venchiarutti'
+
     this._setParagraphStyle('coverAllCaps')
-    this._addParagraph('ETEC Vasco Antônio Venchiarutti')
+    this._addParagraph(schoolName)
     this._addBlanckLines(4)
 
     this._addAuthors()
@@ -87,6 +96,26 @@ class Word {
     this._addParagraph(this.par.place)
     this._addParagraph(this.par.year)
     this._setParagraphStyle('defaultParagraph')
+
+    this._setParagraphStyle('cover')
+    this._addBlanckLines(1)
+
+    this._addParagraph(schoolName)
+    this._addBlanckLines(8)
+
+    this._addParagraph(this.par.title)
+    this._addAuthors()
+    this._addBlanckLines(7)
+
+    this._setParagraphStyle('falsoResumo')
+    this._addParagraph(this.par.falsoResumo)
+    this._addBlanckLines(7)
+
+    this._setParagraphStyle('defaultParagraph')
+    this._addBlanckLines(1)
+    this._addTitle('RESUMO')
+
+    this._addParagraph(this.par.resumo)
   }
 
   _addContentPages() {

@@ -10,17 +10,16 @@ let obj = {
   subTitle: 'SubTítulo',
   place: 'Jundiaí',
   year: '2018',
+  falsoResumo: 'Eu sou o falso resumo',
+  resumo: 'Eu sou o verdadeiro resumo',
 
   content: [
 
   ],
 }
 
+
 let word = new createWord.Word(obj)
 
-word.addTitle('I am a title')
-word.addParagraph('I am a paragraph')
-word.addParagraph('I am another paragraph')
-word.addTitle('I am the last title')
 
 word.createFile()
