@@ -54,6 +54,12 @@ class Word {
     .size(32)
     .color('2e74b5')
 
+  this.doc.styles
+    .createParagraphStyle('abntTitle')
+    .font('Arial')
+    .size(32)
+    .color('000000')
+
   this.doc.Styles
     .createParagraphStyle('cover')
     .basedOn('defaultParagraph')
@@ -112,9 +118,9 @@ class Word {
     this._addBlanckLines(7)
 
     this._setParagraphStyle('defaultParagraph')
-    this._addBlanckLines(1)
+    this._setTitleStyle('abntTitle')
     this._addTitle('RESUMO')
-
+    this._addBlanckLines(1)
     this._addParagraph(this.par.resumo)
   }
 
