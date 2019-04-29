@@ -1,17 +1,21 @@
-async function getImages(searchterm){
-    const google= require('googleapis').google
-	const Customsearch = google.customsearch('v1')
-	const pass = require('./credentials/package.json').googlesearch
-	const id = require('./credentials/package.json').imgsearch
-    const response = await Customsearch.cse.list({auth: pass, cx:id, q: searchterm, num: 1,searchType:'image', imgSize:'huge'})
+const google= require('googleapis').google
+const Customsearch = google.customsearch('v1')
+const pass = require('./credentials/google.json').googlesearch
+const id = require('./credentials/google.json').imgsearch
+
+async function robot(content){
+    await downloadAllImage(content)
+}
+
+async function getImages(content){
+    const response = await Customsearch.cse.list({auth: pass, cx:id, q: content.searchTerm, num: 1,searchType:'image', imgSize:'huge'})
     const imgURL = response.data.items.map((items) =>{
         return items.link
     })
     return imgURL
 }
-async function downloadAllImage(searchterm, keywords){
-    imageURL = await getImages(searchterm)
-    let i = 0
+async function downloadAllImage(content){
+    imageURL = await getImages(content)
     imageList = []
    for (image of imageURL){
             for(keyword of keywords){
@@ -21,7 +25,7 @@ async function downloadAllImage(searchterm, keywords){
                             if(imageList.includes(image)){
                                 throw new Error('Imagem já baixada')
                             }
-                            await downloadAndSave(searchterm, key, image)
+                            await downloadAndSave(content)
                             console.log(`file saved in ${searchterm} ${key}`)
                             imageList.push(image)
                             break
@@ -35,8 +39,8 @@ async function downloadAllImage(searchterm, keywords){
                         if(imageList.includes(image)){
                             throw new Error('Imagem baixada anteriormente')
                         }
-                        await downloadAndSave(searchterm, keyword, image)
-                        console.log(`file saved in ${searchterm} ${keyword}`)
+                        await downloadAndSave(content)
+                        console.log(`file saved in ${content.searchterm} ${content.keyword}`)
                         break
                     } catch (error) {
                         console.log(`erro ao baixar ${searchterm} ${key} there a error ${error}`)
@@ -46,11 +50,11 @@ async function downloadAllImage(searchterm, keywords){
         }
     // console.log(`${imageURL} and ${Object.getOwnPropertyNames(imageURL)}`)
 }
-async function downloadAndSave(filename, keyword, url){
+async function downloadAndSave(content){
     const download = require('image-downloader')
     return download.image({
-        dest:`img/${filename} ${keyword}.jpg`,
-        url: url})
+        dest:`img/${content.searchTerm} ${content.sentences.keywords}.jpg`,
+        url: content})
 
 }
 // downloadAllImage('Albert Einstein', ['bomba', 'relatividade'])

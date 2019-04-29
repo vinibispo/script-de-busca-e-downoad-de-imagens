@@ -1,13 +1,14 @@
 const robots = {
-	google: require('./robots/google'),
- 	// watson: require('./robots/watson'),
+	// google: require('./robots/google'),
 	// image: require('./robots/image'),
 	userInput : require('./robots/user-input'),
 	text: require('./robots/text') 
 }
 
 async function start() {
-	const content = {}
+	const content = {
+		maximumSentences: 10
+	}
 	// content.amount = askAndReturnAmount()
 	// content.results = await findResults()
 	// content.keywords = await fetchKeywords()
@@ -15,8 +16,8 @@ async function start() {
 	robots.userInput(content)
 	text = await robots.text(content)
 	await text.Wiki
-	await robots.google(content)
-	console.log(content.sentences)
+	// await robots.google(content)
+	console.log(JSON.stringify(content))
 	/*
 	async function fetchKeywords(){
 		sentences = await content.results.summarize
