@@ -9,9 +9,13 @@ async function robot(content){
 async function Google(content){
 	Link = []
 	const answer = await Customsearch.cse.list({auth: pass, cx:id, q: content.searchTerm, num: content.amount})
-	for(let i = 0; i < count; i++){
+	for(let i = 0; i < content.amount; i++){
 		let link = answer.data.items[i].link
-		Link.push(link)
+		if (link.indexOf('wikipedia') || link.indexOf('g1') || link.indexOf('youtube')){
+
+		}else{
+			Link.push(link)
+		}
 	}
 	content.link = Link
 }
