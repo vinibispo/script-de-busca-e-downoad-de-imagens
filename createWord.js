@@ -1,4 +1,3 @@
-
 class _Title {
   constructor(text) {
     this.txt = text
