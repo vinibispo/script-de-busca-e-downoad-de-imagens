@@ -1,4 +1,4 @@
-let createWord = require('./wordLibrary')
+let createWord = require('./createWord')
 
 let obj = {
   fileName: 'test.docx',
