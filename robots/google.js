@@ -1,13 +1,16 @@
-const google= require('googleapis').google
+const google = require('googleapis').google
 const Customsearch = google.customsearch('v1')
 const pass = require('../credentials/google.json').googlesearch
 const id = require('../credentials/google.json').searchid
 const algorithmia = require('algorithmia')
 const password = require('../credentials/algorithmia.json').algo
+const state = require('../state')
 
 async function robot(content){
+	state.load()
 	await fetchLinksFromGoogle(content)
 	await Summarize(content)
+	state.save(content)
 }
 async function fetchLinksFromGoogle(content){
 	Link = []

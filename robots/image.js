@@ -2,10 +2,12 @@ const google= require('googleapis').google
 const Customsearch = google.customsearch('v1')
 const pass = require('../credentials/google.json').googlesearch
 const id = require('../credentials/google.json').imgsearch
-
+const state = require('../state')
 async function robot(content){
+    state.load()
     await fetchImagesFromAllSentences(content)
     await downloadAllImages(content)
+    state.save(content)
 }
 async function fetchImagesFromAllSentences(content){
     for(const sentences of content.sentences){
