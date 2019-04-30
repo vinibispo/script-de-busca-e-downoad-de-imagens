@@ -11,6 +11,7 @@ const nlu = new nluv1({
 const sourceBoundaryDetection = require('sbd')
 
 async function robot(content){
+    console.log(Welcome, you are on sentences')
     await fetchContentFromWikipedia(content)
     sanitizeContent(content)
     breakIntoSentences(content)
