@@ -13,6 +13,6 @@ async function start() {
 	await robots.text(content)
 	await robots.google(content)
 	await robots.image(content)
-	console.log(content)
+	console.log(JSON.stringify(content))
 }
 start()

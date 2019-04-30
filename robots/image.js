@@ -24,18 +24,18 @@ async function fetchLinksFromGoogleImages(query){
 async function downloadAllImages(content){
     content.downloadedImages = []
     for(let sentencesIndex = 0; sentencesIndex< content.sentences.length; sentencesIndex++){
-    const images = content.sentences[sentencesIndex].images
+    const images = content.sentences[sentencesIndex].image
     for(let imageIndex = 0; imageIndex < images.length; imageIndex++){
         const imageURL = images[imageIndex]
         try {
             if (content.downloadedImages.includes(imageURL)) {
                 throw new Error('Imagem já baixada')
             }
-            await downloadAndSave(imageURL, `${sentencesIndex}-original`)
+            await downloadAndSave(imageURL, `${sentencesIndex}-original.jpg`)
             content.downloadedImages.push(imageURL)
             break
         } catch (error) {
-            console.log('Erro ao baixar!')
+            console.log('Erro ao baixar! ' + error)
         }
     }
     }
@@ -44,7 +44,7 @@ async function downloadAllImages(content){
 async function downloadAndSave(url, filename){
     const download = require('image-downloader')
     return download.image({
-        dest:`img/${filename}.jpg`,
+        dest:`./img/${filename}`,
         url: url})
 }
 module.exports = robot

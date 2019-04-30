@@ -4,7 +4,7 @@
   "description": "Neste projeto criaremos um programa que cria artigos na norma ABNT, com o tema escolhido pelo usuário",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index"
   },
   "repository": {
     "type": "git",
@@ -22,11 +22,10 @@
   "dependencies": {
     "algorithmia": "^0.3.10",
     "docx": "^4.7.1",
-    "googleapis": "^39.1.0",
-    "ibm-watson": "^4.0.1",
+    "googleapis": "^39.2.0",
+    "ibm-watson": "^4.1.0",
     "image-downloader": "^3.4.2",
     "readline-sync": "^1.4.9",
-    "sbd": "^1.0.15",
-    "sinc": "0.0.1"
+    "sbd": "^1.0.15"
   }
 }
