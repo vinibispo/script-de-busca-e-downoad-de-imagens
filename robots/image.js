@@ -1,61 +1,50 @@
 const google= require('googleapis').google
 const Customsearch = google.customsearch('v1')
-const pass = require('./credentials/google.json').googlesearch
-const id = require('./credentials/google.json').imgsearch
+const pass = require('../credentials/google.json').googlesearch
+const id = require('../credentials/google.json').imgsearch
 
 async function robot(content){
-    await downloadAllImage(content)
+    await fetchImagesFromAllSentences(content)
+    await downloadAllImages(content)
+}
+async function fetchImagesFromAllSentences(content){
+    for(const sentences of content.sentences){
+        const query = `${content.searchTerm} ${sentences.keywords[0]}`
+        sentences.image = await fetchLinksFromGoogleImages(query)
+    }
 }
 
-async function getImages(content){
-    const response = await Customsearch.cse.list({auth: pass, cx:id, q: content.searchTerm, num: 1,searchType:'image', imgSize:'huge'})
+async function fetchLinksFromGoogleImages(query){
+    const response = await Customsearch.cse.list({auth: pass, cx:id, q: query, num: 2,searchType:'image', imgSize:'huge'})
     const imgURL = response.data.items.map((items) =>{
         return items.link
     })
     return imgURL
 }
-async function downloadAllImage(content){
-    imageURL = await getImages(content)
-    imageList = []
-   for (image of imageURL){
-            for(keyword of keywords){
-                if(typeof keyword == 'object'){
-                    for(key of keyword){
-                        try {
-                            if(imageList.includes(image)){
-                                throw new Error('Imagem já baixada')
-                            }
-                            await downloadAndSave(content)
-                            console.log(`file saved in ${searchterm} ${key}`)
-                            imageList.push(image)
-                            break
-                        } catch (error) {
-                            console.log(`erro ao baixar ${searchterm} ${key} there a error ${error}`)
-                        }
-                    }
-                }
-                else{
-                    try {
-                        if(imageList.includes(image)){
-                            throw new Error('Imagem baixada anteriormente')
-                        }
-                        await downloadAndSave(content)
-                        console.log(`file saved in ${content.searchterm} ${content.keyword}`)
-                        break
-                    } catch (error) {
-                        console.log(`erro ao baixar ${searchterm} ${key} there a error ${error}`)
-                    }
-                }
+async function downloadAllImages(content){
+    content.downloadedImages = []
+    for(let sentencesIndex = 0; sentencesIndex< content.sentences.length; sentencesIndex++){
+    const images = content.sentences[sentencesIndex].images
+    for(let imageIndex = 0; imageIndex < images.length; imageIndex++){
+        const imageURL = images[imageIndex]
+        try {
+            if (content.downloadedImages.includes(imageURL)) {
+                throw new Error('Imagem já baixada')
             }
+            await downloadAndSave(imageURL, `${sentencesIndex}-original`)
+            content.downloadedImages.push(imageURL)
+            break
+        } catch (error) {
+            console.log('Erro ao baixar!')
         }
+    }
+    }
     // console.log(`${imageURL} and ${Object.getOwnPropertyNames(imageURL)}`)
 }
-async function downloadAndSave(content){
+async function downloadAndSave(url, filename){
     const download = require('image-downloader')
     return download.image({
-        dest:`img/${content.searchTerm} ${content.sentences.keywords}.jpg`,
-        url: content})
-
+        dest:`img/${filename}.jpg`,
+        url: url})
 }
-// downloadAllImage('Albert Einstein', ['bomba', 'relatividade'])
-module.exports = downloadAllImage
+module.exports = robot

@@ -9,20 +9,15 @@ const nlu = new nluv1({
     url: url
 })
 const sourceBoundaryDetection = require('sbd')
+
 async function robot(content){
-    const obj = {
-        Wiki: await Wikipedia(content),
-        // Summarize: await Summarize(content)
-    }
-    return obj
+    await fetchContentFromWikipedia(content)
+    sanitizeContent(content)
+    breakIntoSentences(content)
+    limitMaximumSentences(content)
+    await fetchKeywordsFromAllSentences(content)
 }
-// async function Summarize(content){
-//     const algoAuthenticated = await algorithmia(pass)
-//    const SummarizeURL = await algoAuthenticated.algo("nlp/SummarizeURL/0.1.4?timeout=300") // timeout is optional
-//     const SummarizeResponse = await SummarizeURL.pipe(content.sentences.link)
-//     const SummarizeContent = await SummarizeResponse.get()
-//     return SummarizeContent
-// }
+
 async function fetchContentFromWikipedia(content){
     const AlgoAuthenticated = await algorithmia(pass)
     const wikipediaAlgorithm = await AlgoAuthenticated.algo('web/WikipediaParser/0.1.2?timeout=300')
@@ -30,9 +25,6 @@ async function fetchContentFromWikipedia(content){
     const wikipediaContent = await wikipediaResponse.get()
     content.sourceContentOriginal = wikipediaContent.content
 }
-// async function Wikipedia(content){
-//     return sanitizeContent(await fetchContentFromWikipedia(content))
-// }
 function sanitizeContent(content){
     withoutBlankLinesAndMarkdown = removeBlankLinesAndMarkdown(content.sourceContentOriginal)
     content.sourceContentSanitized = withoutBlankLinesAndMarkdown
@@ -58,13 +50,6 @@ function breakIntoSentences(content){
         })
     })
     
-}
-async function Wikipedia(content){
-    await fetchContentFromWikipedia(content)
-    sanitizeContent(content)
-    breakIntoSentences(content)
-    limitMaximumSentences(content)
-    await fetchKeywordsFromAllSentences(content)
 }
 async function fetchKeywordsFromAllSentences(content){
     for(const sentences of content.sentences){
