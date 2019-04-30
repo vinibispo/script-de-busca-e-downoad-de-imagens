@@ -1,6 +1,5 @@
 function robot(content){
     const readline  = require('readline-sync')
-    console.log('Welcome, you are on user-input')
     content.searchTerm = askAndReturnSearchTerm()
     content.amount = askAndReturnAmount()
 
