@@ -39,6 +39,7 @@ async function downloadAllImages(content){
         }
     }
     }
+    // console.log(`${imageURL} and ${Object.getOwnPropertyNames(imageURL)}`)
 }
 async function downloadAndSave(url, filename){
     const download = require('image-downloader')
@@ -46,3 +47,4 @@ async function downloadAndSave(url, filename){
         dest:`./img/${filename}`,
         url: url})
 }
+module.exports = robot
