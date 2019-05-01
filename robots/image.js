@@ -7,8 +7,10 @@ async function robot(content){
     state.load()
     await fetchImagesFromAllSentences(content)
     await downloadAllImages(content)
+    await resizeAllImages(content)
     state.save(content)
 }
+
 async function fetchImagesFromAllSentences(content){
     for(const sentences of content.sentences){
         const query = `${content.searchTerm} ${sentences.keywords[0]}`
@@ -23,6 +25,7 @@ async function fetchLinksFromGoogleImages(query){
     })
     return imgURL
 }
+
 async function downloadAllImages(content){
     content.downloadedImages = []
     for(let sentencesIndex = 0; sentencesIndex< content.sentences.length; sentencesIndex++){
@@ -41,12 +44,17 @@ async function downloadAllImages(content){
         }
     }
     }
-    // console.log(`${imageURL} and ${Object.getOwnPropertyNames(imageURL)}`)
 }
+
 async function downloadAndSave(url, filename){
     const download = require('image-downloader')
     return download.image({
         dest:`./img/${filename}`,
         url: url})
 }
+
+async function resizeAllImages(content){
+
+}
+
 module.exports = robot
