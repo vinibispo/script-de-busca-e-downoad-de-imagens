@@ -1,17 +1,20 @@
+const state = require('../state')
+const algorithmia = require('algorithmia')
 const google = require('googleapis').google
 const Customsearch = google.customsearch('v1')
 const pass = require('../credentials/google.json').googlesearch
 const id = require('../credentials/google.json').searchid
-const algorithmia = require('algorithmia')
 const password = require('../credentials/algorithmia.json').algo
-const state = require('../state')
 
-async function robot(content){
-	state.load()
+async function robot(){
+	content =  state.load()
 	await fetchLinksFromGoogle(content)
+	state.save(content)
+	content = state.load()
 	await Summarize(content)
 	state.save(content)
 }
+
 async function fetchLinksFromGoogle(content){
 	Link = []
 	const answer = await Customsearch.cse.list({auth: pass, cx:id, q: content.searchTerm, num: content.amount})
@@ -25,6 +28,7 @@ async function fetchLinksFromGoogle(content){
 	}
 	content.link = Link
 }
+
 async function Summarize(content){
 	Text = []
     const algoAuthenticated = await algorithmia(password)
@@ -36,4 +40,5 @@ async function Summarize(content){
    }
 	content.text = Text
 }
+
 module.exports = robot
