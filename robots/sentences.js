@@ -8,13 +8,20 @@ const nluv1 = require('ibm-watson/natural-language-understanding/v1')
 
 async function robot(){
     content = state.load()
-    // await fetchContentFromWikipedia(content)
-    // sanitizeContent(content)
-    // breakIntoSentences(content)
-    // limitMaximumSentences(content)
+    await fetchContentFromWikipedia(content)
+    state.save(content)
+    content = state.load()
+    sanitizeContent(content)
+    state.save(content)
+    content = state.load()
+    breakIntoSentences(content)
+    state.save(content)
+    content = state.load()
+    limitMaximumSentences(content)
+    state.save(content)
+    content = state.load()
     await fetchKeywordsFromAllSentences(content)
     state.save(content)
-    // state.save(content)
 }
 
 async function fetchContentFromWikipedia(content){

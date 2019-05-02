@@ -6,9 +6,11 @@ const pass = require('../credentials/google.json').googlesearch
 const id = require('../credentials/google.json').searchid
 const password = require('../credentials/algorithmia.json').algo
 
-async function robot(content){
-	state.load()
+async function robot(){
+	content =  state.load()
 	await fetchLinksFromGoogle(content)
+	state.save(content)
+	content = state.load()
 	await Summarize(content)
 	state.save(content)
 }

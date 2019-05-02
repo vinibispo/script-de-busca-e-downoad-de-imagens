@@ -8,10 +8,9 @@ image: require('./robots/image')
 
 async function start() {
 	// robots.userinput()
-	content = state.load()
-	await robots.text()
-	// await robots.google(content)
-	// await robots.image(content)
+	// await robots.text()
+	// await robots.google()
+	await robots.image()
 }
 
 start()

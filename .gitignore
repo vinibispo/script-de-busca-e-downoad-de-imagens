@@ -62,4 +62,5 @@ typings/
 .next
 *.jpg
 .vscode
+*.png
 content.json
