@@ -1,17 +1,18 @@
 const gm = require('gm').subClass({imageMagick: true})
+const fs = require('fs')
 const google= require('googleapis').google
 const Customsearch = google.customsearch('v1')
 const pass = require('../credentials/google.json').googlesearch
 const id = require('../credentials/google.json').imgsearch
-const state = require('../state')
+const state = require('./state')
 
 async function robot(){
     content = state.load()
-    // await fetchImagesFromAllSentences(content)
-    // state.save(content)
-    // content = state.load()
-    // await downloadAllImages(content)
-    // state.save(content)
+    await fetchImagesFromAllSentences(content)
+    state.save(content)
+    content = state.load()
+    await downloadAllImages(content)
+    state.save(content)
     await convertAllImages(content)
 }
 
@@ -45,7 +46,7 @@ async function downloadAllImages(content){
             }
             await downloadAndSave(imageURL, `${sentencesIndex}.jpg`)
             content.downloadedImages.push(imageURL)
-            console.log(`${sentencesIndex} baixada com sucesso`)
+            console.log(`> [image-robot] ${sentencesIndex} baixada com sucesso`)
             break
         } catch (error) {
             console.log('Erro ao baixar! ' + error)
@@ -99,7 +100,7 @@ async function convertImage(sentenceIndex){
               return reject(error)
             }
   
-            console.log(`> [video-robot] Image converted: ${outputFile}`)
+            console.log(`> [image-robot] Image converted: ${sentenceIndex}`)
             resolve()
           })
   

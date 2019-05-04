@@ -1,4 +1,4 @@
-const state = require('../state')
+const state = require('./state')
 const algorithmia = require('algorithmia')
 const google = require('googleapis').google
 const Customsearch = google.customsearch('v1')
@@ -36,7 +36,7 @@ async function Summarize(content){
    for(const link of content.link){
     const SummarizeResponse = await SummarizeURL.pipe(link)
     const SummarizeContent = await SummarizeResponse.get()
-    Text.push(await SummarizeContent)
+	Text.push(await SummarizeContent)
    }
 	content.text = Text
 }
