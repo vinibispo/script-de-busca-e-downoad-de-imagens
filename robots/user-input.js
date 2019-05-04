@@ -1,4 +1,4 @@
-const state = require('../state')
+const state = require('./state')
 const content = {
     maximumSentences: 10
 }

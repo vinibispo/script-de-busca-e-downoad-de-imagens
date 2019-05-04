@@ -1,4 +1,4 @@
-const state = require('../state')
+const state = require('./state')
 const sourceBoundaryDetection = require('sbd')
 const algorithmia = require('algorithmia');
 const pass = require('../credentials/algorithmia.json').algo
@@ -64,6 +64,7 @@ function breakIntoSentences(content){
 async function fetchKeywordsFromAllSentences(content){
     for(const sentences of content.sentences){
         sentences.keywords = await fetchKeywordsFromWatson(sentences.text)
+        console.log(`> [text-robot] keywords catched`)
     }
 }
 
