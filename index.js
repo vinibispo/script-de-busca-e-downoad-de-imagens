@@ -9,11 +9,11 @@ word: require('./robots/word')
 }
 
 async function start() {
-	// robots.userinput()
-	// await robots.text()
-	// await robots.google()
-	// await robots.image()
-	// robots.wordinput()
+	robots.userinput()
+	await robots.text()
+	await robots.google()
+	await robots.image()
+	robots.wordinput()
 	robots.word()
 }
 

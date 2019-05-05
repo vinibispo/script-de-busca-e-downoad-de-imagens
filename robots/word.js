@@ -5,15 +5,17 @@ function robot() {
 }
 function createWord(content){
     const Word = require('../createWord')
-    const obj = {
-      fileName : './'+content.searchTerm + '.docx',
+    let obj = {
+      fileName: `${content.searchTerm}.docx`,
       authors: content.authors,
       title: content.title,
       subTitle: content.subtitle,
       place: content.place,
       year: content.year,
-      falsoresumo:'aaaaaaaaa',
-      resumo: content.resumo
+      falsoResumo: content.falsoresumo,
+      resumo: content.resumo,
+    
+      content: content.text,
     }
     const word = new Word.Word(obj)
     word.createFile()
