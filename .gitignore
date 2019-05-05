@@ -64,3 +64,4 @@ typings/
 .vscode
 *.png
 content.json
+*.docx

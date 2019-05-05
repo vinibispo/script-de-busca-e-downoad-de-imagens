@@ -1,45 +1,93 @@
 const state = require('./state')
-const word = require('./createWord')
+const Word = require('../createWord')
 const read = require('readline-sync')
 function robot(){
     content = state.load()
-    getYear(content)
-    state.save(content)
-    content = state.load()
-    getTitle(content)
-    state.save(content)
-    content = state.load()
-    getSubtitle(content)
-    state.save(content)
-    content = state.load()
-    getPlace(content)
-    state.save(content)
-    state.save(content)
+    // getAuthors(content)
+    // getYear(content)
+    // state.save(content)
+    // content = state.load()
+    // getTitle(content)
+    // state.save(content)
+    // content = state.load()
+    // getSubtitle(content)
+    // state.save(content)
+    // content = state.load()
+    // getPlace(content)
+    // getSummary(content)
+    // state.save(content)
+    // content = state.load()
+    // getFakeSummary(content)
+    // state.save(content)
+    createWord(content)
 }
+function getSummary(content) {
+  kindOfWork = getWork()
+  getCourse()
+  getSubjects()
+  getTeachers()
+  resumo = `${content.course} and ${content.subjects} and ${content.teachers}`
+  content.resumo = resumo
+}
+
+function getFakeSummary(content) {
+  kindOfWork = getWork()
+  course = content.course
+  subjects = content.subjects
+  teachers = content.falsoresumo
+  resumo = `${course} or ${subjects} and ${teachers}`
+  content.falsoresumo = resumo
+}
+
+function getWork() {
+  list = ['Monografia', 'Trabalho de Conclusão de Curso']
+}
+
+function getCourse() {
+  content.course = read.question('Digite o curso: ')
+}
+
+function getSubjects() {
+  list = []
+  num = read.question('Digite quantas matérias são: ')
+  for (let index = 0; index < num; index++) {
+    const subject = read.question('Digite o nome de uma: ')
+    list.push(subject)    
+  }
+  content.subjects = list
+}
+
+function getTeachers() {
+    list = []
+  num = read.question('Digite quantos professores são: ')
+  for (let index = 0; index < num; index++) {
+    const teacher = read.question('Digite o nome de um: ')
+    list.push(teacher)    
+  }
+  content.teachers = list
+}
+
+function getAuthors(content) {
+  authorList = []
+  num = read.question('Type how many authors that has: ')
+  for (indexOfAuthors = 0; indexOfAuthors < num; indexOfAuthors++){
+    author = read.question('Type an author: ')
+    authorList.push(author)
+  }
+  content.authors = authorList
+}
+
 function getYear(content){
   const date = new Date()
   yeardate = date.getFullYear()
   content.year = yeardate
 }
-// async function nameofFile(){
-//   content = await Index()
-//   name = content.searchTerm
-//   return name
-// }
+
 // async function getAllContent(){
 //   content = await Index()
 //   contentall = content.results
 //   contentList = contentall.summarize
 //   return contentList
-// }
-// async function getAuthors(){
-//   amount = read.question('Type how many authors that has: ')
-//   authors = []
-//   for(let i = 0; i< amount; i++){
-//     author = read.question('Type the name of author: ')
-//     authors.push(author)
-//   }
-//   return authors
 // }
 function getTitle(content){
   title = read.question("Type the title: ")
@@ -53,23 +101,26 @@ function getPlace(content){
   place = read.question("Type the place: ")
   content.place = place
 }
-// async function createWord(){
-//   const obj = {
-//     authors: content.authors,
-//     fileName : content.searchTerm + '.docx',
-//     title: content.title,
-//     subTitle: content.subTitle,
-//     place: content.place,
-//     year: content.year,
-//   }
-//   let word = new word.Word(obj)
+
+function createWord(content){
+  const obj = {
+    authors: content.authors,
+    fileName : content.searchTerm + '.docx',
+    title: content.title,
+    subTitle: content.subtitle,
+    place: content.place,
+    year: content.year,
+    falsoresumo:content.falsoresumo,
+    resumo: content.resumo
+  }
+  let word = new Word.Word(obj)
 //   for (content of await Paragraphing()){
 //     word.addParagraph(content)
 //   }
 
-//   word.createFile()
+  word.createFile()
 // }
 // createWord()
-
+}
 // state.save(content)
 module.exports = robot
