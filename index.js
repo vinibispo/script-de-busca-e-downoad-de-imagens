@@ -1,5 +1,4 @@
-const state = require('./robots/state')
-robots = {
+const robots = {
 userinput: require('./robots/user-input'),
 google: require('./robots/google'),
 text: require('./robots/sentences'),

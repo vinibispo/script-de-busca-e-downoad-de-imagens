@@ -20,25 +20,24 @@ function robot(){
     state.save(content)
 }
 function getSummary(content) {
-  kindOfWork = getWork()
-  getCourse()
-  getSubjects()
-  getTeachers()
-  resumo = `${content.course} and ${content.subjects} and ${content.teachers}`
+  resumo = `Este texto mostrará a vocês, senhoras e senhores. Tudo a respeito de ${content.searchTerm}`
   content.resumo = resumo
 }
 
 function getFakeSummary(content) {
-  kindOfWork = getWork()
-  course = content.course
-  subjects = content.subjects
-  teachers = content.falsoresumo
-  resumo = `${course} or ${subjects} and ${teachers}`
-  content.falsoresumo = resumo
+  getWork()
+  getCourse()
+  getSubjects()
+  getTeachers()
+  falsoresumo = `${content.work} sobre ${content.searchTerm} referente ao curso de ${content.course} como requisito de avaliação das disciplinas de ${content.subjects}, sob orientação dos professores ${content.teachers}.`
+  content.falsoresumo = falsoresumo
 }
 
 function getWork() {
-  list = ['Monografia', 'Trabalho de Conclusão de Curso']
+  console.log('Digite o tipo de trabalho:')
+  const kindOfWork = ['Monografia', 'Trabalho de Conclusão de Curso', 'Trabalho de Pesquisa']
+  const selectedWork = read.keyInSelect(kindOfWork)
+  content.work =kindOfWork[selectedWork]
 }
 
 function getCourse() {
@@ -93,6 +92,5 @@ function getPlace(content){
   place = read.question("Type the place: ")
   content.place = place
 }
-
 // state.save(content)
 module.exports = robot
