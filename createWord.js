@@ -121,6 +121,11 @@ class Word {
     this._addTitle('RESUMO')
     this._addBlanckLines(1)
     this._addParagraph(this.par.resumo)
+    // INTRODUÇÃO
+    this._addBlanckLines(2)
+    this._addTitle('INDRODUÇÃO')
+    this._addBlanckLines(1)
+    this._addParagraph(this.par.introduction)
   }
 
   _addContentPages() {
