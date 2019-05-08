@@ -123,7 +123,7 @@ class Word {
     this._addParagraph(this.par.resumo)
     // INTRODUÇÃO
     this._addBlanckLines(2)
-    this._addTitle('INDRODUÇÃO')
+    this._addTitle('INTRODUÇÃO')
     this._addBlanckLines(1)
     this._addParagraph(this.par.introduction)
   }
