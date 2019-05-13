@@ -14,8 +14,9 @@ function createWord(content){
       year: content.year,
       falsoResumo: content.falsoresumo,
       resumo: content.resumo,
-    
+      introduction: content.introduction,
       content: content.text,
+      conclusion: content.conclusion
     }
     const word = new Word.Word(obj)
     word.createFile()

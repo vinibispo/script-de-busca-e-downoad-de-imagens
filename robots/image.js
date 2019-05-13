@@ -8,11 +8,11 @@ const state = require('./state')
 
 async function robot(){
     content = state.load()
-    await fetchImagesFromAllSentences(content)
-    state.save(content)
-    content = state.load()
-    await downloadAllImages(content)
-    state.save(content)
+    // await fetchImagesFromAllSentences(content)
+    // state.save(content)
+    // content = state.load()
+    // await downloadAllImages(content)
+    // state.save(content)
     await convertAllImages(content)
 }
 

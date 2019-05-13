@@ -24,7 +24,7 @@
     "docx": "^4.7.1",
     "gm": "^1.23.1",
     "googleapis": "^39.2.0",
-    "ibm-watson": "^4.1.0",
+    "ibm-watson": "^4.1.1",
     "image-downloader": "^3.4.2",
     "readline-sync": "^1.4.9",
     "sbd": "^1.0.15"

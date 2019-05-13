@@ -18,9 +18,13 @@ function robot(){
     content = state.load()
     getFakeSummary(content)
     state.save(content)
+    getIntroduction(content)
+    state.save(content)
+    getConclusion(content)
+    state.save(content)
 }
 function getSummary(content) {
-  resumo = `Este texto mostrará a vocês, senhoras e senhores. Tudo a respeito de ${content.searchTerm}`
+  resumo = `Este texto mostrará a vocês, senhoras e senhores, tudo a respeito de ${content.searchTerm}`
   content.resumo = resumo
 }
 
@@ -91,6 +95,14 @@ function getSubtitle(content){
 function getPlace(content){
   place = read.question("Type the place: ")
   content.place = place
+}
+function getIntroduction(content){
+  introduction = `Nesse trabalho iremos tratar de ${content.searchTerm}\nVocê verá o que são e onde são encontrados.\nEstamos fazendo isso para que você, porventura deseja conhecer mais sobre ${content.searchTerm}, mas não souber onde encontrar, nós trouxemos a solução. Esperamos que você aproveite todo conhecimento que é passado e que você goste`
+  content.introduction = introduction
+}
+function getConclusion(content){
+  conclusion = `Concluímos aqui que ${content.searchTerm} é muito mais interessante do que você pensava`
+  content.conclusion = conclusion
 }
 // state.save(content)
 module.exports = robot
