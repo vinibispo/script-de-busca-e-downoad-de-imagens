@@ -35,6 +35,7 @@ class Word {
 
   createFile() {
       this._addContentPages()
+      this._addConclusion();
       new this.docx.Packer().toBuffer(this.doc).then((buffer) => {
         this.fs.writeFileSync(this.par.fileName, buffer)
     })
@@ -47,39 +48,46 @@ class Word {
     .spacing({ line: 360 }) 
     .font('Arial')
 
-  this.doc.styles
-    .createParagraphStyle('defaultTitle')
-    .font('Arial')
-    .size(32)
-    .color('2e74b5')
+    this.doc.styles
+      .createParagraphStyle('defaultTitle')
+      .font('Arial')
+      .size(32)
+      .color('2e74b5')
 
-  this.doc.styles
-    .createParagraphStyle('abntTitle')
-    .font('Arial')
-    .size(32)
-    .color('000000')
+    this.doc.styles
+      .createParagraphStyle('abntTitle')
+      .font('Arial')
+      .size(32)
+      .color('000000')
 
-  this.doc.Styles
-    .createParagraphStyle('cover')
-    .basedOn('defaultParagraph')
-    .center()
-  
-  this.doc.Styles
-    .createParagraphStyle('coverAllCaps')
-    .basedOn('cover')
-    .allCaps()
-  
-  this.doc.Styles
-    .createParagraphStyle('coverBold')
-    .basedOn('cover')
-    .bold()
-  
-  this.doc.Styles
-    .createParagraphStyle('falsoResumo')
-    .basedOn('defaultParagraph')
-    .justified()
-    .right()
+    this.doc.Styles
+      .createParagraphStyle('cover')
+      .basedOn('defaultParagraph')
+      .center()
+    
+    this.doc.Styles
+      .createParagraphStyle('coverAllCaps')
+      .basedOn('cover')
+      .allCaps()
+    
+    this.doc.Styles
+      .createParagraphStyle('coverBold')
+      .basedOn('cover')
+      .bold()
+    
+    this.doc.Styles
+      .createParagraphStyle('falsoResumo')
+      .basedOn('defaultParagraph')
+      .justified()
+      .right()
 
+  }
+
+  _addConclusion() {
+    this._setTitleStyle('abntTitle')
+    this._addTitle('CONCLUSÃO')
+    this._addBlanckLines(1);
+    this._addParagraph(this.par.conclusion)
   }
   
   _addAbntPages() {

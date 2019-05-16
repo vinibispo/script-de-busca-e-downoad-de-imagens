@@ -13,6 +13,7 @@ let obj = {
   falsoResumo: 'Eu sou o falso resumo',
   resumo: 'Eu sou o verdadeiro resumo',
   introduction: 'I am the fucking introduction MOTHERFUCKER!!!',
+  conclusion: 'I am the fucking conclusion nasty BITCH!!!',
 
   content: [
     'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
