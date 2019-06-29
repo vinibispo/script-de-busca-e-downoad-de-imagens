@@ -134,6 +134,17 @@ class Word {
     this._addTitle('INTRODUÇÃO')
     this._addBlanckLines(1)
     this._addParagraph(this.par.introduction)
+    // AGRADECIMENTO
+    this._addBlanckLines(2)
+    this._addTitle('AGRADECIMENTO')
+    this._addBlanckLines(1)
+    this._addParagraph(this.par.agredecimento)
+    // REFERÊNCIAS
+    this._addBlanckLines(2)
+    this._addTitle('REFERÊNCIAS')
+    this._addBlanckLines(1)
+    for (const par of this.par.referencias)
+      this._addParagraph(par)
   }
 
   _addContentPages() {

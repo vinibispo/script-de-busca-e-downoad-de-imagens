@@ -14,6 +14,10 @@ let obj = {
   resumo: 'Eu sou o verdadeiro resumo',
   introduction: 'I am the fucking introduction MOTHERFUCKER!!!',
   conclusion: 'I am the fucking conclusion nasty BITCH!!!',
+  agredecimento: 'Eu sou o agradecimento',
+  referencias: [
+    'asdf'
+  ],
 
   content: [
     'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
