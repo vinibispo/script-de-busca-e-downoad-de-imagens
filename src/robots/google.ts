@@ -1,1 +1,2 @@
-import {customsearch_v1 } from 'googleapis'
+import {google } from 'googleapis'
+const Google = google.customsearch('v1')
