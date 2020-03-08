@@ -4,9 +4,7 @@
   "description": "Neste projeto criaremos um programa que cria artigos na norma ABNT, com o tema escolhido pelo usuário",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "ts-node src/index.ts",
-    "build": "tsc"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",

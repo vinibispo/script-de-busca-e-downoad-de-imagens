@@ -1,5 +1,5 @@
-import read from 'readline-sync'
-import * as state from '../state'
+const read = require('readline-sync')
+const state = require('../state')
 const robot = () =>{
     let content = {term: '', amount: 0}
     if(state.load()){
@@ -18,7 +18,6 @@ const askAndReturnNumOfResults = () =>{
 }
     content.term = askAndReturnSearchTerm()
     content.amount = askAndReturnNumOfResults()
-    console.log(JSON.stringify(content))
     state.save(content)
 }
-export default robot
+module.exports = robot

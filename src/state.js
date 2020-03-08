@@ -1,11 +1,11 @@
-import fs from 'fs'
+const fs = require('fs')
 const conentFilePath = "./content.json"
 
-export const save = (content) =>{
+const save = (content) =>{
     const contentString = JSON.stringify(content)
     return fs.writeFileSync(conentFilePath, contentString)
 }
-export const load = () =>{
+const load = () =>{
     try{
     const fileBuffer = fs.readFileSync(conentFilePath, 'utf-8')
     const contentJSON = JSON.parse(fileBuffer)
@@ -14,4 +14,7 @@ export const load = () =>{
     catch(err){
         return false
     }
+}
+module.exports = {
+    save, load
 }
