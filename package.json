@@ -21,7 +21,6 @@
   "homepage": "https://github.com/vinibispo/script-de-criacao-de-artigos-abnt#readme",
   "dependencies": {
     "algorithmia": "^0.3.10",
-    "docx": "^4.7.1",
     "dotenv": "^8.2.0",
     "gm": "^1.23.1",
     "googleapis": "^39.2.0",
