@@ -1,8 +1,9 @@
 import userinput from './robots/user-input'
+import google from './robots/google'
 import * as state from './state'
 const robots = {
 userinput,
-// google: require('./robots/google'),
+google,
 // text: require('./robots/sentences'),
 // image: require('./robots/image'),
 // wordinput: require('./robots/word-input'),
@@ -13,10 +14,9 @@ async function start() {
 	if (state.load()){
 		content = state.load()
 	}
-	robots.userinput(content)
-	state.save(content)
+	robots.userinput()
 	// await robots.text()
-	// await robots.google()
+	await robots.google(content)
 	// await robots.image()
 	// robots.wordinput()
 	// robots.word()
