@@ -8,8 +8,8 @@ userinput,
 // word: require('./robots/word')
 }
 
-async function start() {
-	// robots.userinput()
+async function start(content) {
+	robots.userinput(content)
 	// await robots.text()
 	// await robots.google()
 	// await robots.image()
