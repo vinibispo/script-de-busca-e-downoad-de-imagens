@@ -28,5 +28,8 @@
     "image-downloader": "^3.4.2",
     "readline-sync": "^1.4.9",
     "sbd": "^1.0.15"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
   }
 }
