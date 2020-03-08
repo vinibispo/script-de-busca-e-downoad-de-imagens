@@ -14,5 +14,6 @@ const robot = async() =>{
         return url
     }
     content.url =  await fetchLinksFromGoogle(content)
+    state.save(content)
 }
 module.exports = robot
