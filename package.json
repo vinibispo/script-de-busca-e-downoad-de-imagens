@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "dev": "tsc "
+    "dev": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@types/readline-sync": "^1.4.3",
+    "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
   }
 }
