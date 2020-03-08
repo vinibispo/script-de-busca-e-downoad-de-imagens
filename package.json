@@ -4,9 +4,7 @@
   "description": "Neste projeto criaremos um programa que cria artigos na norma ABNT, com o tema escolhido pelo usuário",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "ts-node src/index.ts",
-    "build": "tsc"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +21,7 @@
   "homepage": "https://github.com/vinibispo/script-de-criacao-de-artigos-abnt#readme",
   "dependencies": {
     "algorithmia": "^0.3.10",
-    "docx": "^4.7.1",
+    "dotenv": "^8.2.0",
     "gm": "^1.23.1",
     "googleapis": "^39.2.0",
     "ibm-watson": "^4.1.1",
@@ -31,9 +29,5 @@
     "readline-sync": "^1.4.9",
     "sbd": "^1.0.15"
   },
-  "devDependencies": {
-    "@types/readline-sync": "^1.4.3",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.8.3"
-  }
+  "devDependencies": {}
 }
