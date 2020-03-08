@@ -1,8 +1,5 @@
-interface IContent{
-    therm: String
-}
 import read from 'readline-sync'
-const start = (content:IContent) =>{
+const robot = (content:any) =>{
 console.log("[input-robot] Starting input robot")
  const askThermAndReturnSearchTherm = ( ) =>{
     console.log("[input-robot] Welcome to the input robot")
@@ -10,4 +7,4 @@ console.log("[input-robot] Starting input robot")
 }
     content.therm = askThermAndReturnSearchTherm()
 }
-export default start
+export default robot
