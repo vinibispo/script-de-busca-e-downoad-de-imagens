@@ -1,2 +1,3 @@
-﻿# script-de-criacao-de-artigos-abnt
-Neste projeto criaremos um programa que cria artigos na norma ABNT, com o tema escolhido pelo usuário.
+# script-de-busca-e-download-de-imagens
+
+Neste projeto criaremos um programa que baixa imagens com o tema escolhido pelo usuário
